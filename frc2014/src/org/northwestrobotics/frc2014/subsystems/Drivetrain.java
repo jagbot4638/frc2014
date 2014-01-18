@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.northwestrobotics.frc2014.RobotMap;
+import org.northwestrobotics.frc2014.commands.drivetrain.TeleOpDrive;
 
 /**
  * @author Saagar
@@ -25,19 +26,13 @@ public class Drivetrain extends Subsystem {
     
     private final RobotDrive driver = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
     
-    private final Joystick gamepad; // TODO: move joystick to _OI_
     
     
-    public Drivetrain(Joystick gamepad) {
-        this.gamepad = gamepad;
-    }
-
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new TeleOpDrive(this));
     }
     
-    public void react() {
+    public void takeJoystickInput(Joystick gamepad) {
         driver.arcadeDrive(gamepad);
     }
     

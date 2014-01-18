@@ -31,7 +31,7 @@ public class Jagbot extends IterativeRobot {
     
     private final Joystick gamepad = new Joystick(RobotMap.GAMEPAD);
     
-    private final Subsystem drivetrain = new Drivetrain(gamepad);
+    private final Subsystem drivetrain = new Drivetrain();
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -39,7 +39,7 @@ public class Jagbot extends IterativeRobot {
     public void robotInit() {
         // instantiate the command used for the autonomous period
         autonomousCommand = new ExampleCommand();
-
+        
         // Initialize all subsystems
         CommandBase.init();
     }
@@ -62,6 +62,8 @@ public class Jagbot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         autonomousCommand.cancel();
+        drivetrain.getCurrentCommand().start();
+        
     }
 
     /**
