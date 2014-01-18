@@ -9,11 +9,14 @@ package org.northwestrobotics.frc2014;
 
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.ExampleCommand;
+import org.northwestrobotics.frc2014.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -25,7 +28,10 @@ import org.northwestrobotics.frc2014.commands.ExampleCommand;
 public class Jagbot extends IterativeRobot {
 
     Command autonomousCommand;
-
+    
+    private final Joystick gamepad = new Joystick(RobotMap.GAMEPAD);
+    
+    private final Subsystem drivetrain = new Drivetrain(gamepad);
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
