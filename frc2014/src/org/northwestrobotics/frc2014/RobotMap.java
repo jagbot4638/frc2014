@@ -17,4 +17,14 @@ public class RobotMap {
         public static final int BACK_LEFT_MOTOR_CONTROLLER = 1;
         public static final int BACK_RIGHT_MOTOR_CONTROLLER = 1;
     }
+    
+    public static class Launcher {
+        public static final int PRESSURE_SWITCH_CHANNEL = 1;
+        public static final int COMPRESSOR_RELAY_CHANNEL = 1;
+        
+        public static final int HARD_STOP_CHANNEL = 1;
+        
+        public static final int LEFT_DOOR_CHANNEL = 1;
+        public static final int RIGHT_DOOR_CHANNEL = 1;
+    }
 }
