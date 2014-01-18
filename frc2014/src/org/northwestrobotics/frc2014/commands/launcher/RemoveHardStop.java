@@ -11,7 +11,7 @@ import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.subsystems.Launcher;
 
 /**
- *
+ * Removes the hard stop inside the robot to allow ball movement.
  * @author Joshua
  */
 public class RemoveHardStop extends CommandBase {
@@ -22,26 +22,38 @@ public class RemoveHardStop extends CommandBase {
         requires(launcher);
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Called just before this Command runs the first time
+     */
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /**
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() {
+        //Sets the piston to a "retracted" position.
         launcher.getHardStop().set(false);
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * Make this return true when this Command no longer needs to run execute()
+     */
     protected boolean isFinished() {
+        //End the RemoveHardStop command when the piston is retracted.
         return !launcher.getHardStop().get();
     }
 
-    // Called once after isFinished returns true
+    /**
+     * Called once after isFinished returns true
+     */
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected void interrupted() {
     }
 }

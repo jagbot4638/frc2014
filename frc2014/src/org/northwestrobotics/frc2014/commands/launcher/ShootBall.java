@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import org.northwestrobotics.frc2014.subsystems.Launcher;
 
 /**
- *
+ * This command group is the whole sequence of launching the ball.
  * @author Joshua
  */
 public class ShootBall extends CommandGroup {

@@ -10,7 +10,7 @@ import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 
 /**
- *
+ * Fills the pressure of the air compressor, if it needs air.
  * @author Joshua
  */
 public class UpdatePressure extends CommandBase {
@@ -20,12 +20,18 @@ public class UpdatePressure extends CommandBase {
         // eg. requires(chassis);
     }
 
-    // Called just before this Command runs the first time
+    /**
+     * Called just before this Command runs the first time
+     */
     protected void initialize() {
     }
 
-    // Called repeatedly when this Command is scheduled to run
+    /** 
+     * Called repeatedly when this Command is scheduled to run
+     */
     protected void execute() {
+        //Fills the air compressors. If the air compressor has enough air, then
+        //it stops filling. If there is not enough air, then it keeps filling.
         if (airCompressor.getPressureSwitchValue() && airCompressor.enabled()) {
             airCompressor.stop();
         }
@@ -34,17 +40,23 @@ public class UpdatePressure extends CommandBase {
         }
     }
 
-    // Make this return true when this Command no longer needs to run execute()
+    /**
+     * Make this return true when this Command no longer needs to run execute()
+     */
     protected boolean isFinished() {
         return false;
     }
 
-    // Called once after isFinished returns true
+    /** 
+     * Called once after isFinished returns true
+     */
     protected void end() {
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
+    /**
+     * Called when another command which requires one or more of the same 
+     * subsystems is scheduled to run
+     */
     protected void interrupted() {
     }
 }
