@@ -15,10 +15,12 @@ import org.northwestrobotics.frc2014.subsystems.Launcher;
 public class ShootBall extends CommandGroup {
     
     public ShootBall(Launcher launcher) {
+        requires(launcher);
+        
         //TODO: Pressure system
-        addSequential(new RemoveHardStop(launcher));
-        addSequential(new PushBall());
-        addSequential(new ActivateHardStop(launcher));
+        addParallel(new UpdatePressure());
+        addSequential(new PushBall(launcher));
+        
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());

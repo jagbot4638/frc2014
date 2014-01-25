@@ -32,10 +32,9 @@ public class UpdatePressure extends CommandBase {
     protected void execute() {
         //Fills the air compressors. If the air compressor has enough air, then
         //it stops filling. If there is not enough air, then it keeps filling.
-        if (airCompressor.getPressureSwitchValue() && airCompressor.enabled()) {
+        if(airCompressor.getPressureSwitchValue() && airCompressor.enabled()) {
             airCompressor.stop();
-        }
-        else if (!airCompressor.enabled() && !airCompressor.getPressureSwitchValue()) {
+        } else if(!airCompressor.enabled() && !airCompressor.getPressureSwitchValue()) {
             airCompressor.start();
         }
     }

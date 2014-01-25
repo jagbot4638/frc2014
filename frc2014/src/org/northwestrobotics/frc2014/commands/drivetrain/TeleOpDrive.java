@@ -5,7 +5,6 @@
  */
 package org.northwestrobotics.frc2014.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.command.Subsystem;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.subsystems.Drivetrain;
 

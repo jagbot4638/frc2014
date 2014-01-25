@@ -26,5 +26,7 @@ public class RobotMap {
         
         public static final int LEFT_DOOR_CHANNEL = 1;
         public static final int RIGHT_DOOR_CHANNEL = 1;
+        
+        public static final int TIME_TO_LAUNCH_BALL = 1000000;
     }
 }

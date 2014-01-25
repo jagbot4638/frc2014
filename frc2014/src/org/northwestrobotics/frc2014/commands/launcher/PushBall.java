@@ -5,60 +5,59 @@
  */
 package org.northwestrobotics.frc2014.commands.launcher;
 
-import edu.wpi.first.wpilibj.SpeedController;
-import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Scheduler;
 import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.CommandBase;
+import org.northwestrobotics.frc2014.subsystems.Launcher;
 
 /**
  * Pushes the ball from inside of the robot through the other side.
  * @author Joshua
  */
-public class PushBall extends CommandBase {
+public class PushBall extends CommandBase 
+{   
     private final Timer timer = new Timer();
-    private final SpeedController leftDoor = new Talon(RobotMap.Launcher.LEFT_DOOR_CHANNEL);
-    private final SpeedController rightDoor = new Talon(RobotMap.Launcher.RIGHT_DOOR_CHANNEL);
-    public PushBall() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    private final Launcher launcher;
+    
+    public PushBall(Launcher launcher) {
+        requires(launcher);
+        this.launcher = launcher;
     }
 
     /**
      * Called just before this Command runs the first time
      */
     protected void initialize() {
+        // Release hard stop
+        launcher.releaseHardStop();
+        
+        // Launch ball
+        launcher.closeDoors(100);
+        timer.start();
     }
 
     /**
      * Called repeatedly when this Command is scheduled to run
      */
     protected void execute() {
-        //Sets the door motors to start pushing inwards. Also starts a timer 
-        //to measure the time after the ball is launched.
-        leftDoor.set(0); //TODO: Figure out speed of motors
-        rightDoor.set(0); //TODO: Figure out speed of motors
-        timer.start();
+        
     }
 
     /**
      * Make this return true when this Command no longer needs to run execute()
+     * 
+     * @return boolean true if the doors are closed and the time needed to shoot the ball has expired
      */
     protected boolean isFinished() {
-        //TODO: Find time it takes after the ball shoots
-        //Ends the PushBall command when the doors are pushed inwards completely
-        //and when 1 second has passed.
-        return leftDoor.get() == 0 && rightDoor.get() == 0 && timer.get() > 1000000; //microseconds
+        return launcher.isClosed() && timer.get() < RobotMap.Launcher.TIME_TO_LAUNCH_BALL;
     }
 
     /** 
      * Called once after isFinished returns true
      */
     protected void end() {
-       //Sets the doors to an open position.
-       leftDoor.set(1);
-       rightDoor.set(1);
+       launcher.openDoors();
+       launcher.activateHardStop();
     }
 
     /**
