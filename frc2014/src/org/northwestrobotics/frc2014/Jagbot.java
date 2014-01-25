@@ -4,9 +4,7 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package org.northwestrobotics.frc2014;
-
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Joystick;
@@ -25,13 +23,13 @@ import org.northwestrobotics.frc2014.subsystems.Drivetrain;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class Jagbot extends IterativeRobot {
-
+public class Jagbot extends IterativeRobot 
+{
     Command autonomousCommand;
     
-    private final Joystick gamepad = new Joystick(RobotMap.GAMEPAD);
-    
+    private final Joystick gamepad = new Joystick(RobotMap.GAMEPAD);   
     private final Subsystem drivetrain = new Drivetrain();
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -56,11 +54,10 @@ public class Jagbot extends IterativeRobot {
         Scheduler.getInstance().run();
     }
 
+    /**
+     * This function makes sure autonomous functionality stops running when the autonomous period ends
+     */
     public void teleopInit() {
-	// This makes sure that the autonomous stops running when
-        // teleop starts running. If you want the autonomous to 
-        // continue until interrupted by another command, remove
-        // this line or comment it out.
         autonomousCommand.cancel();
         drivetrain.getCurrentCommand().start();
         

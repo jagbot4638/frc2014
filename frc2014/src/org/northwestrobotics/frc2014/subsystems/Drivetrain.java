@@ -27,7 +27,9 @@ public class Drivetrain extends Subsystem {
     
     private final RobotDrive driver = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
     
-    
+    public void tankDrive(double left, double right) {
+        driver.tankDrive(left, right);
+    }
     
     public void initDefaultCommand() {
         setDefaultCommand(new TeleOpDrive(this));
@@ -39,8 +41,5 @@ public class Drivetrain extends Subsystem {
     
     public void stop() {
         driver.arcadeDrive(0, 0, true);
-    }
-    
-    
+    }   
 }
-
