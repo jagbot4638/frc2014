@@ -32,7 +32,7 @@ public class TeleOpDrive extends CommandBase {
      * @author Saagar
      */
     protected void execute() {
-        drivetrain.tankDrive(oi.getLeftSpeed(), oi.getRightSpeed());
+        drivetrain.move(oi.getLeftSpeed(), oi.getRightSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()

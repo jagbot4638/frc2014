@@ -27,16 +27,12 @@ public class Drivetrain extends Subsystem {
     
     private final RobotDrive driver = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
     
-    public void tankDrive(double left, double right) {
+    public void move(double left, double right) {
         driver.tankDrive(left, right);
     }
     
     public void initDefaultCommand() {
         setDefaultCommand(new TeleOpDrive(this));
-    }
-    
-    public void takeJoystickInput(Joystick gamepad) {
-        driver.arcadeDrive(gamepad);
     }
     
     public void stop() {
