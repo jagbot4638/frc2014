@@ -17,11 +17,9 @@ import org.northwestrobotics.frc2014.subsystems.Launcher;
 public class PushBall extends CommandBase 
 {   
     private final Timer timer = new Timer();
-    private final Launcher launcher;
     
-    public PushBall(Launcher launcher) {
+    public PushBall() {
         requires(launcher);
-        this.launcher = launcher;
     }
 
     /**

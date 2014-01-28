@@ -2,6 +2,10 @@
 package org.northwestrobotics.frc2014;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
+import org.northwestrobotics.frc2014.commands.launcher.PushBall;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -9,14 +13,21 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
     // Driver gamepad and button bindings
-    private final Joystick driverGamepad;
+    private final Joystick driverGamepad = new Joystick(RobotMap.Gamepad.DRIVER_GAMEPAD);
+    private final Joystick actuatorGamepad = new Joystick(RobotMap.Gamepad.ACTUATOR_GAMEPAD);
+    
+    private final Button shootTrigger = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.ACTUATOR_TRIGGER);
     
     public OI() {
-        driverGamepad = new Joystick(RobotMap.Gamepad.DRIVER_GAMEPAD);
+        shootTrigger.whenReleased(new PushBall());
     }
     
-    public Joystick getDriverGamepad() {
-        return driverGamepad;
+    /**
+     * Returns true if the user has pressed the button to shoot.
+     * @return whether or not the user has instructed the robot to shoot.
+     */
+    public boolean isShootButtonPressed() {
+        return actuatorGamepad.getTrigger();
     }
     
     /**

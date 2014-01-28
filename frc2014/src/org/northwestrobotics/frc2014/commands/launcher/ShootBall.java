@@ -5,22 +5,21 @@
  */
 package org.northwestrobotics.frc2014.commands.launcher;
 
-import edu.wpi.first.wpilibj.command.CommandGroup;
+import org.northwestrobotics.frc2014.commands.CommandGroupBase;
 import org.northwestrobotics.frc2014.subsystems.Launcher;
 
 /**
  * This command group is the whole sequence of launching the ball.
  * @author Joshua
  */
-public class ShootBall extends CommandGroup {
-    
+public class ShootBall extends CommandGroupBase {
+      
     public ShootBall(Launcher launcher) {
         requires(launcher);
         
         //TODO: Pressure system
         addParallel(new UpdatePressure());
-        addSequential(new PushBall(launcher));
-        
+                
         // Add Commands here:
         // e.g. addSequential(new Command1());
         //      addSequential(new Command2());
@@ -37,4 +36,11 @@ public class ShootBall extends CommandGroup {
         // a CommandGroup containing them would require both the chassis and the
         // arm.
     }
+
+    protected void execute() {
+        
+        super.execute();
+    }
+    
+    
 }

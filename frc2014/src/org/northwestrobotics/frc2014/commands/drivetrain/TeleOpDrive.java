@@ -13,11 +13,8 @@ import org.northwestrobotics.frc2014.subsystems.Drivetrain;
  * @author Saagar
  */
 public class TeleOpDrive extends CommandBase {
-    private final Drivetrain drivetrain;
-    
-    public TeleOpDrive(Drivetrain drivetrain) {
+    public TeleOpDrive() {
         requires(drivetrain);
-        this.drivetrain = drivetrain;
     }
 
     /**
@@ -32,7 +29,7 @@ public class TeleOpDrive extends CommandBase {
      * @author Saagar
      */
     protected void execute() {
-        drivetrain.move(oi.getLeftSpeed(), oi.getRightSpeed());
+        drivetrain.tankMove(oi.getLeftSpeed(), oi.getRightSpeed());
     }
 
     // Make this return true when this Command no longer needs to run execute()

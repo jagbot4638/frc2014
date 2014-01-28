@@ -27,12 +27,12 @@ public class Drivetrain extends Subsystem {
     
     private final RobotDrive driver = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
     
-    public void move(double left, double right) {
+    public void tankMove(double left, double right) {
         driver.tankDrive(left, right);
     }
     
     public void initDefaultCommand() {
-        setDefaultCommand(new TeleOpDrive(this));
+        setDefaultCommand(new TeleOpDrive());
     }
     
     public void stop() {

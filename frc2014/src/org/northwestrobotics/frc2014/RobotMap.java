@@ -11,14 +11,17 @@ public class RobotMap {
     public static final int GAMEPAD = 1;
     
     public static class Gamepad {
+        private Gamepad() {}
         public static final int DRIVER_GAMEPAD = 1;
         public static final int ACTUATOR_GAMEPAD = 2;
         
         public static final int DRIVER_LEFT_THUMB_STICK = 3;
         public static final int DRIVER_RIGHT_THUMB_STICK = 3;
+        public static final int ACTUATOR_TRIGGER = 10; // TODO: find out the button number for the trigger.
     }
     
     public static class Drivetrain {
+        private Drivetrain() {}
         public static final int FRONT_LEFT_MOTOR_CONTROLLER = 1;
         public static final int FRONT_RIGHT_MOTOR_CONTROLLER = 1;
         
@@ -27,6 +30,7 @@ public class RobotMap {
     }
     
     public static class Launcher {
+        private Launcher() {}
         public static final int PRESSURE_SWITCH_CHANNEL = 1;
         public static final int COMPRESSOR_RELAY_CHANNEL = 1;
         
@@ -39,6 +43,7 @@ public class RobotMap {
     }
     
     public static class Grabber {
+        private Grabber() {}
         public static final int DOOR_CLOSE_SPEED = 10;
     }
 }

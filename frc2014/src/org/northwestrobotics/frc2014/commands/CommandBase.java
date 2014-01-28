@@ -3,6 +3,7 @@ package org.northwestrobotics.frc2014.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2014.OI;
+import org.northwestrobotics.frc2014.subsystems.Launcher;
 import org.northwestrobotics.frc2014.subsystems.Drivetrain;
 
 /**
@@ -13,9 +14,10 @@ import org.northwestrobotics.frc2014.subsystems.Drivetrain;
  */
 public abstract class CommandBase extends Command {
 
-    public static OI oi;
+    protected static OI oi;
     // Create a single static instance of all of your subsystems
-    
+    protected static Drivetrain drivetrain;
+    protected static Launcher launcher;
 
     public static void init() {
         // This MUST be here. If the OI creates Commands (which it very likely
@@ -24,7 +26,9 @@ public abstract class CommandBase extends Command {
         // yet. Thus, their requires() statements may grab null pointers. Bad
         // news. Don't move it.
         oi = new OI();
-
+        
+        drivetrain = new Drivetrain();
+        launcher = new Launcher();
         // Show what command your subsystem is running on the SmartDashboard
         
     }
@@ -36,4 +40,7 @@ public abstract class CommandBase extends Command {
     public CommandBase() {
         super();
     }
+    
+    
+        
 }

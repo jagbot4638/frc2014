@@ -27,8 +27,6 @@ public class Jagbot extends IterativeRobot
 {
     Command autonomousCommand;
     
-    private final Joystick gamepad = new Joystick(RobotMap.GAMEPAD);   
-    private final Subsystem drivetrain = new Drivetrain();
     
     /**
      * This function is run when the robot is first started up and should be
@@ -59,8 +57,6 @@ public class Jagbot extends IterativeRobot
      */
     public void teleopInit() {
         autonomousCommand.cancel();
-        drivetrain.getCurrentCommand().start();
-        
     }
 
     /**
