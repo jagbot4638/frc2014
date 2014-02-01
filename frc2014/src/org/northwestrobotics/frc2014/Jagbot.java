@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.northwestrobotics.frc2014.commands.CommandBase;
-import org.northwestrobotics.frc2014.commands.ExampleCommand;
+import org.northwestrobotics.frc2014.commands.AutonomousMode;
 import org.northwestrobotics.frc2014.subsystems.Drivetrain;
 
 /**
@@ -27,14 +27,14 @@ public class Jagbot extends IterativeRobot
 {
     Command autonomousCommand;
     
-    
+    private final Subsystem drivetrain = new Drivetrain();
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new ExampleCommand();
+        autonomousCommand = new AutonomousMode( ((Drivetrain) drivetrain).getDriver());
         
         // Initialize all subsystems
         CommandBase.init();
