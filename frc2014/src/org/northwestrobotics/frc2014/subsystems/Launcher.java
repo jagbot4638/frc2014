@@ -25,7 +25,7 @@ public class Launcher extends Subsystem {
     
     
     public void initDefaultCommand() {
-        closeDoors(50);
+        launchBall(50);
         setDefaultCommand(new UpdatePressure());
     }
     
@@ -42,7 +42,7 @@ public class Launcher extends Subsystem {
      * 
      * @param force Force the doors close (0 - 100)
      */
-    public void closeDoors(int force) {
+    public void launchBall(int force) {
         // Limits force to max value of 100
         force = Math.min(force, 100);
         
@@ -60,6 +60,21 @@ public class Launcher extends Subsystem {
     public void openDoors() {
         leftDoor.set(0);
         rightDoor.set(0);
+    }
+    
+    
+    public void startClosingDoors(){
+        //close the doors halfway
+        //may need to use a sensor
+       leftDoor.set(RobotMap.Launcher.DOOR_CLOSE_SPEED);
+       rightDoor.set(RobotMap.Launcher.DOOR_CLOSE_SPEED);
+    }
+    
+    public void stopClosingDoors(){
+        //close the doors halfway
+        //may need to use a sensor
+       leftDoor.set(0);
+       rightDoor.set(0);
     }
     
     /**

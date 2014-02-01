@@ -40,6 +40,10 @@ public class RobotMap {
         public static final int RIGHT_DOOR_CHANNEL = 1;
         
         public static final int TIME_TO_LAUNCH_BALL = 1000000;
+        
+        public static final int TIME_TO_CLOSE_DOORS = 2000000; // TODO: test to determine actual time
+        
+        public static final int DOOR_CLOSE_SPEED = 10;// TODO: determine actual
     }
     
     public static class Grabber {

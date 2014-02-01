@@ -18,6 +18,7 @@ public class OI {
     
     private final Button shootTrigger = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.ACTUATOR_TRIGGER);
     
+    
     public OI() {
         shootTrigger.whenReleased(new PushBall());
     }

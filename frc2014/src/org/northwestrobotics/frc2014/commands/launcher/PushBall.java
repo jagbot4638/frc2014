@@ -30,7 +30,7 @@ public class PushBall extends CommandBase
         launcher.releaseHardStop();
         
         // Launch ball
-        launcher.closeDoors(100);
+        launcher.launchBall(100);
         timer.start();
     }
 
