@@ -25,8 +25,9 @@ public class Launcher extends Subsystem {
     
     
     public void initDefaultCommand() {
+        activateHardStop();
         launchBall(50);
-        setDefaultCommand(new UpdatePressure());
+        //setDefaultCommand(new UpdatePressure());
     }
     
     public void activateHardStop() {

@@ -4,6 +4,7 @@ package org.northwestrobotics.frc2014;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import org.northwestrobotics.frc2014.commands.launcher.PickUpBall;
 import org.northwestrobotics.frc2014.commands.launcher.PushBall;
 
 /**
@@ -16,10 +17,11 @@ public class OI {
     private final Joystick actuatorGamepad = new Joystick(RobotMap.Gamepad.ACTUATOR_GAMEPAD);
     
     private final Button shootTrigger = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.ACTUATOR_TRIGGER);
-    
+    private final Button retrieveButton = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.RETRIEVE_BUTTON);
     
     public OI() {
         shootTrigger.whenReleased(new PushBall());
+        retrieveButton.whenReleased(new PickUpBall());
     }
     
     /**

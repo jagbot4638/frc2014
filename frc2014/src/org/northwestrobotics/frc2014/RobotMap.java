@@ -11,6 +11,7 @@ public class RobotMap {
     public static final int GAMEPAD = 1;
     
     public static class Gamepad {
+        public static final int RETRIEVE_BUTTON = 9; // TODO: pick button number
         private Gamepad() {}
         public static final int DRIVER_GAMEPAD = 1;
         public static final int ACTUATOR_GAMEPAD = 2;
@@ -44,10 +45,5 @@ public class RobotMap {
         public static final int TIME_TO_CLOSE_DOORS = 2000000; // TODO: test to determine actual time
         
         public static final int DOOR_CLOSE_SPEED = 10;// TODO: determine actual
-    }
-    
-    public static class Grabber {
-        private Grabber() {}
-        public static final int DOOR_CLOSE_SPEED = 10;
     }
 }

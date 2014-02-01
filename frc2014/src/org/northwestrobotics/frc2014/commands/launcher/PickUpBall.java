@@ -5,14 +5,17 @@
  */
 package org.northwestrobotics.frc2014.commands.launcher;
 
+import edu.wpi.first.wpilibj.Timer;
+import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.subsystems.Launcher;
 
 /**
- * Closes the doors with an activated hard stop, and thus grabs the ball.  
- * @author Joshua
+ *
+ * @author Jill
  */
 public class PickUpBall extends CommandBase {
+    private final Timer timer = new Timer();
     
     public PickUpBall() {
         requires(launcher);
@@ -22,22 +25,23 @@ public class PickUpBall extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-        launcher.activateHardStop();
-        launcher.openDoors();
+        launcher.startClosingDoors();
+        timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-        //launcher.launchBall();
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return launcher.isClosed();
+        return timer.get() < RobotMap.Launcher.TIME_TO_CLOSE_DOORS;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+        timer.stop();
+        launcher.stopClosingDoors();
     }
 
     // Called when another command which requires one or more of the same
