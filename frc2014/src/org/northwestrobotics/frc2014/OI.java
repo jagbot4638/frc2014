@@ -4,7 +4,6 @@ package org.northwestrobotics.frc2014;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.buttons.Trigger;
 import org.northwestrobotics.frc2014.commands.launcher.PushBall;
 
 /**
@@ -34,7 +33,8 @@ public class OI {
      * @return The value of the left joystick.
      */
     public double getLeftSpeed() {
-        return driverGamepad.getY();
+        //return driverGamepad.getY();
+        return 0.0 - driverGamepad.getRawAxis(2);
     }
     
     /**
@@ -42,7 +42,7 @@ public class OI {
      *         we have a logitech joystick that resembles a PS controller.
      */
     public double getRightSpeed() {
-        return driverGamepad.getRawAxis(4);
+        return 0.0 - driverGamepad.getRawAxis(4);
     }
 }
 

@@ -1,7 +1,6 @@
 
 package org.northwestrobotics.frc2014.subsystems;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -33,6 +32,9 @@ public class Drivetrain extends Subsystem {
     
     public void initDefaultCommand() {
         setDefaultCommand(new TeleOpDrive());
+        
+        // Invert right motor
+        driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);    
     }
     
     public void stop() {

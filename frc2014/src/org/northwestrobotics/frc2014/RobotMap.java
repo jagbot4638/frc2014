@@ -23,21 +23,21 @@ public class RobotMap {
     public static class Drivetrain {
         private Drivetrain() {}
         public static final int FRONT_LEFT_MOTOR_CONTROLLER = 1;
-        public static final int FRONT_RIGHT_MOTOR_CONTROLLER = 1;
+        public static final int FRONT_RIGHT_MOTOR_CONTROLLER = 4;
         
-        public static final int BACK_LEFT_MOTOR_CONTROLLER = 1;
-        public static final int BACK_RIGHT_MOTOR_CONTROLLER = 1;
+        public static final int BACK_LEFT_MOTOR_CONTROLLER = 2;
+        public static final int BACK_RIGHT_MOTOR_CONTROLLER = 3;
     }
     
     public static class Launcher {
         private Launcher() {}
-        public static final int PRESSURE_SWITCH_CHANNEL = 1;
-        public static final int COMPRESSOR_RELAY_CHANNEL = 1;
+        public static final int PRESSURE_SWITCH_CHANNEL = 5;
+        public static final int COMPRESSOR_RELAY_CHANNEL = 6;
         
-        public static final int HARD_STOP_CHANNEL = 1;
+        public static final int HARD_STOP_CHANNEL = 7;
         
-        public static final int LEFT_DOOR_CHANNEL = 1;
-        public static final int RIGHT_DOOR_CHANNEL = 1;
+        public static final int LEFT_DOOR_CHANNEL = 9;
+        public static final int RIGHT_DOOR_CHANNEL = 10;
         
         public static final int TIME_TO_LAUNCH_BALL = 1000000;
     }
