@@ -24,12 +24,4 @@ public class CommandGroupBase extends CommandGroup
     protected OI getOI() {
         return CommandBase.oi;
     }
-    
-    protected Drivetrain getDrivetrain() {
-        return CommandBase.drivetrain;
-    }
-    
-    protected Launcher getLauncher() {
-        return CommandBase.launcher;
-    }
 }

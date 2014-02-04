@@ -39,11 +39,6 @@ public class Drivetrain extends Subsystem {
     
     public void stop() {
         driver.arcadeDrive(0, 0, true);
-    }   
-    
-    
-    public RobotDrive getDriver(){
-        return driver;
     }
     
 }

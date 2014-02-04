@@ -34,7 +34,7 @@ public class Jagbot extends IterativeRobot
      */
     public void robotInit() {
         // instantiate the command used for the autonomous period
-        autonomousCommand = new AutonomousMode( ((Drivetrain) drivetrain).getDriver());
+        //autonomousCommand = new AutonomousMode( ((Drivetrain) drivetrain).getDriver());
         
         // Initialize all subsystems
         CommandBase.init();

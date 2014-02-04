@@ -6,8 +6,8 @@ package org.northwestrobotics.frc2014;
  * the wiring easier and significantly reduces the number of magic numbers
  * floating around.
  */
-public class RobotMap {
-    
+public class RobotMap 
+{    
     public static final int GAMEPAD = 1;
     
     public static class Gamepad {
@@ -45,5 +45,25 @@ public class RobotMap {
         public static final int TIME_TO_CLOSE_DOORS = 2000000; // TODO: test to determine actual time
         
         public static final int DOOR_CLOSE_SPEED = 10;// TODO: determine actual
+    }
+    
+    public static class Autonomous {
+        
+        private Autonomous() {}
+        
+        public static final int TIME_TO_TURN = 1000000;
+        public static final int TIME_TO_DRIVE_STRAIGHT = 1000000;
+        public static final int TIME_TO_REACH_WALL = 1500000;
+        public static final int TIME_TO_REACH_GOAL = 1000000;
+        
+        
+    }
+
+    public static class Direction
+    {
+        public static final int FORWARD = 1;
+
+        private Direction() {
+        }
     }
 }

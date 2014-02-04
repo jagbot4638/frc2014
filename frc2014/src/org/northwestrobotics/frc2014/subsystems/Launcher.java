@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2014.RobotMap;
-import org.northwestrobotics.frc2014.commands.launcher.UpdatePressure;
 
 /**
  *
@@ -21,8 +20,6 @@ public class Launcher extends Subsystem {
     private final SpeedController leftDoor = new Talon(RobotMap.Launcher.LEFT_DOOR_CHANNEL);
     private final SpeedController rightDoor = new Talon(RobotMap.Launcher.RIGHT_DOOR_CHANNEL);    
     private final Solenoid hardStop = new Solenoid(RobotMap.Launcher.HARD_STOP_CHANNEL);
-    
-    
     
     public void initDefaultCommand() {
         activateHardStop();
