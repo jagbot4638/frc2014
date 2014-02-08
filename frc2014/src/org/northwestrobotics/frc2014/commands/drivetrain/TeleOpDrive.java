@@ -19,7 +19,7 @@ public class TeleOpDrive extends CommandBase {
 
     /**
      * Called just before this Command runs the first time.
-     * @author Saagar
+     * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
      */
     protected void initialize() {
         
@@ -27,7 +27,7 @@ public class TeleOpDrive extends CommandBase {
 
     /**
      * Called repeatedly when this Command is scheduled to run.
-     * @author Saagar
+     * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
      */
     protected void execute() {
         drivetrain.tankMove(oi.getLeftSpeed(), oi.getRightSpeed());
@@ -35,10 +35,10 @@ public class TeleOpDrive extends CommandBase {
         
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     /**
      * Returns true when this Command no longer needs to run execute()
      * @return true when this Command no longer needs to run execute()
+     * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
      */
     protected boolean isFinished() {
         return false;
@@ -46,6 +46,7 @@ public class TeleOpDrive extends CommandBase {
 
     /**
      * Called once after isFinished returns true.
+     * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
      */
     protected void end() {
         drivetrain.stop();

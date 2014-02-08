@@ -17,33 +17,37 @@ public class OI {
     private final Joystick driverGamepad = new Joystick(RobotMap.Gamepad.DRIVER_GAMEPAD);
     private final Joystick actuatorGamepad = new Joystick(RobotMap.Gamepad.ACTUATOR_GAMEPAD);
     
-    private final Button shootTrigger = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.ACTUATOR_TRIGGER);
-    private final Button retrieveButton = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.RETRIEVE_BUTTON);
-    private final Command pushBallCommand;
+    private final Button shootTrigger = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.SHOOT_TRIGGER);
+    private final Button passButton = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.PASS_BUTTON);
     
+    private final Button retrieveButton = new JoystickButton(actuatorGamepad, RobotMap.Gamepad.RETRIEVE_BUTTON);
+    
+    private final Command shootBallCommand;
+    
+    /**
+     * Creates an OI object. Binds the controls on the physical operator interface to the commands.
+     */
     public OI() {
-        shootTrigger.whenReleased(this.pushBallCommand = new PushBall());
+        shootTrigger.whenReleased(shootBallCommand = new PushBall(RobotMap.Launcher.SHOOT_FORCE));
+        passButton.whenReleased(new PushBall(RobotMap.Launcher.PASS_FORCE));
+        
         retrieveButton.whenReleased(new PickUpBall());
     }
     
-    public final Command getPushBallCommand() {
-        return pushBallCommand;
-    }
-    
     /**
-     * Returns true if the user has pressed the button to shoot.
-     * @return whether or not the user has instructed the robot to shoot.
+     * Returns the command that instructs the robot to shoot the ball.
+     * @return The command that instructs the robot to shoot the ball.
      */
-    public boolean isShootButtonPressed() {
-        return actuatorGamepad.getTrigger();
+    public Command getShootBallCommand() {
+        return shootBallCommand;
     }
     
     /**
-     * @return The value of the left joystick.
+     * Gets the value of the left component for tank drive. In other words, the left stick's vertical axis.
+     * @return The value of the left component for tank drive. In other words, the left stick's vertical axis.
      */
     public double getLeftSpeed() {
-        //return driverGamepad.getY();
-        return 0.0 - driverGamepad.getRawAxis(2);
+        return -driverGamepad.getRawAxis(RobotMap.Gamepad.LEFT_AXIS);
     }
     
     /**
@@ -51,7 +55,7 @@ public class OI {
      *         we have a logitech joystick that resembles a PS controller.
      */
     public double getRightSpeed() {
-        return 0.0 - driverGamepad.getRawAxis(4);
+        return -driverGamepad.getRawAxis(RobotMap.Gamepad.RIGHT_AXIS);
     }
 }
 

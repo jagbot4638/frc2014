@@ -23,7 +23,7 @@ import org.northwestrobotics.frc2014.subsystems.Drivetrain;
  */
 public class Jagbot extends IterativeRobot 
 {
-    Command autonomousCommand;
+    //Command autonomousCommand;
     
     private final Subsystem drivetrain = new Drivetrain();
     /**
@@ -40,32 +40,32 @@ public class Jagbot extends IterativeRobot
 
     public void autonomousInit() {
         // schedule the autonomous command (example)
-        autonomousCommand.start();
+        //autonomousCommand.start();
     }
 
     /**
-     * This function is called periodically during autonomous
+     * This function is called periodically during autonomous.
      */
     public void autonomousPeriodic() {
         Scheduler.getInstance().run();
     }
 
     /**
-     * This function makes sure autonomous functionality stops running when the autonomous period ends
+     * This function makes sure autonomous functionality stops running when the autonomous period ends.
      */
     public void teleopInit() {
-        autonomousCommand.cancel();
+        //autonomousCommand.cancel();
     }
 
     /**
-     * This function is called periodically during operator control
+     * This function is called periodically during operator control.
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();
     }
     
     /**
-     * This function is called periodically during test mode
+     * This function is called periodically during test mode.
      */
     public void testPeriodic() {
         LiveWindow.run();

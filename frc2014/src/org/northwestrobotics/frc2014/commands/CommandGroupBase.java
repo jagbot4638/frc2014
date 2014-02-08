@@ -11,7 +11,7 @@ import org.northwestrobotics.frc2014.subsystems.Launcher;
 import org.northwestrobotics.frc2014.subsystems.Drivetrain;
 
 /**
- *
+ * Provides command groups with a way to access the OI.
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
 public class CommandGroupBase extends CommandGroup

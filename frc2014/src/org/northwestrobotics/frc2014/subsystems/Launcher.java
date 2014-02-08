@@ -37,23 +37,23 @@ public class Launcher extends Subsystem {
     
     /**
      * Closes doors. Pushing/launching out the ball
-     * 
-     * @param force Force the doors close (0 - 100)
+     * @param launchSpeed Force the doors close (0 - 100)
      */
-    public void launchBall(int force) {
-        // Limits force to max value of 100
-        force = Math.min(force, 100);
+    public void launchBall(int launchSpeed) {
+        // Limits launchForce to max value of 100 and min value of 0
+        launchSpeed = Math.min(launchSpeed, 100);
+        launchSpeed = Math.max(launchSpeed, 0);
         
-        if(force > 0) {
-            leftDoor.set(force / 100.0);
-            rightDoor.set(force / 100.0);
+        if(launchSpeed > 0) {
+            leftDoor.set(launchSpeed / 100.0);
+            rightDoor.set(launchSpeed / 100.0);
         } else {
             SmartDashboard.putString("Error", "Door close force cannot be less than 0");
         }
     }
     
     /**
-     * Opens doors
+     * Opens doors.
      */
     public void openDoors() {
         leftDoor.set(0);
@@ -77,7 +77,6 @@ public class Launcher extends Subsystem {
     
     /**
      * Returns true if launcher doors are closed
-     * 
      * @return true if launcher doors are closed
      */
     public boolean isClosed() {

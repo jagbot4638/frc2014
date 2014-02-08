@@ -12,13 +12,20 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
 /**
  * Pushes the ball from inside of the robot through the other side.
  * 
- * @author Joshua
+ * @author Joshua Fleming
+ * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
 public class PushBall extends TimedCommand
 {   
-    public PushBall() {
+    private final int launchForce;
+    public PushBall(int launchForce) {
         super(RobotMap.Launcher.TIME_TO_LAUNCH_BALL);
         requires(launcher);
+        this.launchForce = launchForce;
+    }
+    
+    public PushBall() {
+        this(100);
     }
 
     /**
@@ -29,7 +36,7 @@ public class PushBall extends TimedCommand
         launcher.releaseHardStop();
         
         // Launch ball
-        launcher.launchBall(100);
+        launcher.launchBall(launchForce);
         
     }
 

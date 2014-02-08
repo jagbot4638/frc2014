@@ -4,13 +4,17 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
- * @author Jamison Bryant <jbryant@outlook.com>
+ * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
 public abstract class TimedCommand extends CommandBase
 {
     private final Timer stopwatch = new Timer();
     private final int timeRequired;
     
+    /**
+     * Constructs a command that occurs for a certain period of time.
+     * @param timeRequired The period of time to keep this command scheduled for.
+     */
     public TimedCommand(int timeRequired) {
         this.timeRequired = timeRequired;
     }
@@ -41,6 +45,10 @@ public abstract class TimedCommand extends CommandBase
         cease();
     }
     
+    /**
+     * Occurs after time has run out.
+     * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
+     */
     protected void cease() {
         
     }

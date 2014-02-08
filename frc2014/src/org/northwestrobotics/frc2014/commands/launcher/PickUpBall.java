@@ -17,8 +17,6 @@ public class PickUpBall extends TimedCommand
     public PickUpBall() {
         super(RobotMap.Launcher.TIME_TO_CLOSE_DOORS);
         requires(launcher);
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
