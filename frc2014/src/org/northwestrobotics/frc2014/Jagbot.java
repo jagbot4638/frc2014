@@ -1,18 +1,9 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) FIRST 2008. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
 package org.northwestrobotics.frc2014;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import org.northwestrobotics.frc2014.commands.CommandBase;
-import org.northwestrobotics.frc2014.subsystems.Drivetrain;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -22,26 +13,17 @@ import org.northwestrobotics.frc2014.subsystems.Drivetrain;
  * directory.
  */
 public class Jagbot extends IterativeRobot 
-{
-    //Command autonomousCommand;
-    
-    private final Subsystem drivetrain = new Drivetrain();
+{   
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
     public void robotInit() {
-        // instantiate the command used for the autonomous period
-        //autonomousCommand = new AutonomousMode( ((Drivetrain) drivetrain).getDriver());
-        
         // Initialize all subsystems
         CommandBase.init();
     }
 
-    public void autonomousInit() {
-        // schedule the autonomous command (example)
-        //autonomousCommand.start();
-    }
+    public void autonomousInit() {}
 
     /**
      * This function is called periodically during autonomous.
@@ -53,9 +35,7 @@ public class Jagbot extends IterativeRobot
     /**
      * This function makes sure autonomous functionality stops running when the autonomous period ends.
      */
-    public void teleopInit() {
-        //autonomousCommand.cancel();
-    }
+    public void teleopInit() {}
 
     /**
      * This function is called periodically during operator control.
