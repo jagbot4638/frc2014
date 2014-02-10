@@ -25,7 +25,6 @@
 package org.northwestrobotics.frc2014.commands.launcher;
 
 import edu.wpi.first.wpilibj.Compressor;
-import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 
 /**
@@ -36,9 +35,7 @@ import org.northwestrobotics.frc2014.commands.CommandBase;
  * @author Jamison Bryant <jbryant@outlook.com>
  */
 public class UpdatePressure extends CommandBase
-{
-    private final Compressor compressor = new Compressor(RobotMap.Launcher.PRESSURE_SWITCH_CHANNEL, RobotMap.Launcher.COMPRESSOR_RELAY_CHANNEL);
-    
+{   
     public UpdatePressure() {}
 
     /**
@@ -50,20 +47,13 @@ public class UpdatePressure extends CommandBase
      * Executes the command.
      */
     protected void execute() {
+        Compressor compressor = launcher.getCompressor();
+        
         if(compressor.getPressureSwitchValue() && compressor.enabled()) {
             compressor.stop();
         } else if(!compressor.enabled() && !compressor.getPressureSwitchValue()) {
             compressor.start();
         }
-    }
-
-    /**
-     * Checks if the command is finished
-     * 
-     * @return If the command is finished
-     */
-    protected boolean isFinished() {
-        return false;
     }
 
     /**
@@ -75,4 +65,13 @@ public class UpdatePressure extends CommandBase
      * Called if the command is interrupted by another command.
      */
     protected void interrupted() {}
+    
+    /**
+     * Checks if the command is finished
+     * 
+     * @return If the command is finished
+     */
+    protected boolean isFinished() {
+        return false;
+    }
 }
