@@ -99,6 +99,21 @@ public class RobotMap
     }
     
     /**
+     * Defines door constants.
+     * 
+     * @todo Define actual values
+     */
+    public static class Door {
+        private Door() {}
+
+        public static final int CLOSE_SPEED = 0;
+        public static final int OPEN_SPEED = 0;
+        
+        public static final int TIME_TO_CLOSE = 1000000;
+        public static final int TIME_TO_OPEN = 1000000;
+    }
+    
+    /**
      * Defines autonomous constants.
      */
     public static class Autonomous {

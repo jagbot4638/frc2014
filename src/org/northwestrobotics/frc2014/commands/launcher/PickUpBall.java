@@ -45,13 +45,13 @@ public class PickUpBall extends TimedCommand
      * Closes the doors slowly.
      */
     protected void commence() {
-        launcher.startClosingDoors();
+        launcher.closeDoors();
     }
 
     /**
      * Stops closing the doors.
      */
     protected void cease() {
-        launcher.stopClosingDoors();
+        launcher.haltDoors();
     }
 }

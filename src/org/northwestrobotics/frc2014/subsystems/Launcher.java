@@ -58,18 +58,16 @@ public class Launcher extends Subsystem
     
     /**
      * Closes doors. Pushing/launching out the ball
-     * @param launchSpeed Force the doors close (0 - 100)
+     * @param speed Force the doors close (0 - 100)
      */
-    public void launchBall(int launchSpeed) {
-        // Limits launchForce to max value of 100 and min value of 0
-        launchSpeed = Math.min(launchSpeed, 100);
-        launchSpeed = Math.max(launchSpeed, 0);
+    public void launchBall(int speed) {
+        // Limits speed to max value of 100 and min value of 0
+        speed = Math.min(speed, 100);
+        speed = Math.max(speed, 0);
         
-        if(launchSpeed > 0) {
-            leftDoor.set(launchSpeed / 100.0);
-            rightDoor.set(launchSpeed / 100.0);
-        } else {
-            SmartDashboard.putString("Error", "Door close force cannot be less than 0");
+        if(speed > 0) {
+            leftDoor.set(speed / 100.0);
+            rightDoor.set(speed / 100.0);
         }
     }
     
@@ -77,30 +75,32 @@ public class Launcher extends Subsystem
      * Opens doors.
      */
     public void openDoors() {
+        leftDoor.set(RobotMap.Door.OPEN_SPEED);
+        rightDoor.set(RobotMap.Door.OPEN_SPEED);
+    }
+    
+    /**
+     * Closes doors.
+     */
+    public void closeDoors() {
+        leftDoor.set(RobotMap.Door.CLOSE_SPEED);
+        rightDoor.set(RobotMap.Door.CLOSE_SPEED);
+    }
+    
+    /**
+     * Halts doors.
+     */
+    public void haltDoors() {
         leftDoor.set(0);
         rightDoor.set(0);
     }
     
-    
-    public void startClosingDoors(){
-        //close the doors halfway
-        //may need to use a sensor
-       leftDoor.set(RobotMap.Launcher.DOOR_CLOSE_SPEED);
-       rightDoor.set(RobotMap.Launcher.DOOR_CLOSE_SPEED);
-    }
-    
-    public void stopClosingDoors(){
-        //close the doors halfway
-        //may need to use a sensor
-       leftDoor.set(0);
-       rightDoor.set(0);
-    }
-    
     /**
-     * Returns true if launcher doors are closed
-     * @return true if launcher doors are closed
+     * Checks if the launcher doors are closed.
+     * 
+     * @return boolean If launcher doors are closed
      */
-    public boolean isClosed() {
+    public boolean isHalted() {
         return leftDoor.get() > 0 && rightDoor.get() > 0;
     }
 }
