@@ -24,6 +24,7 @@
 
 package org.northwestrobotics.frc2014;
 
+import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -42,11 +43,15 @@ import org.northwestrobotics.frc2014.commands.TestCommand;
 public class Jagbot extends IterativeRobot 
 {   
     private Command testCommand;
+    private DriverStationLCD messageWindow;
     
     /**
      * Runs robot initialization code.
      */
     public void robotInit() {
+        // Initialize Driver Station LCD
+        messageWindow = DriverStationLCD.getInstance();
+        
         // Initialize all subsystems
         CommandBase.init();
     }
@@ -54,7 +59,9 @@ public class Jagbot extends IterativeRobot
     /**
      * Initializes autonomous mode code.
      */
-    public void autonomousInit() {}
+    public void autonomousInit() {
+        messageWindow.println(DriverStationLCD.Line.kUser1, 0, "Initializing autonomous mode...");
+    }
 
     /**
      * Called periodically during autonomous mode.
@@ -66,7 +73,9 @@ public class Jagbot extends IterativeRobot
     /**
      * Initializes tele-op mode code (ends autonomous mode).
      */
-    public void teleopInit() {}
+    public void teleopInit() {
+        messageWindow.println(DriverStationLCD.Line.kUser2, 0, "Initializing tele-op mode...");
+    }
 
     /**
      * Called periodically during tele-op mode.
@@ -76,6 +85,8 @@ public class Jagbot extends IterativeRobot
     }
 
     public void testInit() {
+        messageWindow.println(DriverStationLCD.Line.kUser3, 0, "Initializing test mode...");
+        
         testCommand = new TestCommand();
         testCommand.start();
     }
@@ -85,5 +96,14 @@ public class Jagbot extends IterativeRobot
      */
     public void testPeriodic() {
         Scheduler.getInstance().run();
+    }
+    
+    /**
+     * Returns an object referring to the Driver Station LCD output
+     * 
+     * @return DriverStationLCD The messages window object 
+     */
+    public DriverStationLCD getMessageWindow() {
+        return messageWindow;
     }
 }
