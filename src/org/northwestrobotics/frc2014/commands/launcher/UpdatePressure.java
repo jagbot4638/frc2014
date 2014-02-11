@@ -25,6 +25,8 @@
 package org.northwestrobotics.frc2014.commands.launcher;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DriverStationLCD.Line;
+import org.northwestrobotics.frc2014.Jagbot;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 
 /**
@@ -50,10 +52,10 @@ public class UpdatePressure extends CommandBase
         Compressor compressor = launcher.getCompressor();
         
         if(compressor.getPressureSwitchValue() && compressor.enabled()) {
-            System.out.println("Stopping compressor");
+            Jagbot.printMessage(Line.kUser1, 0, "Stopping compressor");
             compressor.stop();
         } else if(!compressor.enabled() && !compressor.getPressureSwitchValue()) {
-            System.out.println("Starting compressor");
+            Jagbot.printMessage(Line.kUser1, 0, "Starting compressor");
             compressor.start();
         }
     }
