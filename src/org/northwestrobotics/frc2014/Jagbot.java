@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TestCommand;
+import org.northwestrobotics.frc2014.utils.MessageWindow;
 
 /**
  * Main robot class
@@ -60,7 +61,7 @@ public class Jagbot extends IterativeRobot
      * Initializes autonomous mode code.
      */
     public void autonomousInit() {
-        printMessage(Line.kUser1, 1, "Initializing autonomous mode");
+        MessageWindow.write("Auto mode init", 1, 1);
     }
 
     /**
@@ -74,7 +75,7 @@ public class Jagbot extends IterativeRobot
      * Initializes tele-op mode code (ends autonomous mode).
      */
     public void teleopInit() {
-        printMessage(Line.kUser2, 1, "Initializing tele-op mode");
+        MessageWindow.write("Tele-op mode init", 1, 1);
     }
 
     /**
@@ -85,7 +86,7 @@ public class Jagbot extends IterativeRobot
     }
 
     public void testInit() {
-        printMessage(Line.kUser3, 1, "Initializing test mode");
+        MessageWindow.write("Test mode init", 1, 1);
         
         testCommand = new TestCommand();
         testCommand.start();
@@ -96,17 +97,5 @@ public class Jagbot extends IterativeRobot
      */
     public void testPeriodic() {
         Scheduler.getInstance().run();
-    }
-    
-    /**
-     * Returns an object referring to the Driver Station LCD output
-     * 
-     * @param line The line to print the message on (1-6)
-     * @param column The column to start the message at
-     * @param message The message to print to the window
-     */
-    public static void printMessage(Line line, int column, String message) {
-        lcd.println(line, column, message);
-        lcd.updateLCD();
     }
 }

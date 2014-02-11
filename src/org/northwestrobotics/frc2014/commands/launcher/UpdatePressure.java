@@ -28,6 +28,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 import org.northwestrobotics.frc2014.Jagbot;
 import org.northwestrobotics.frc2014.commands.CommandBase;
+import org.northwestrobotics.frc2014.utils.MessageWindow;
 
 /**
  * Update pressure command
@@ -52,10 +53,10 @@ public class UpdatePressure extends CommandBase
         Compressor compressor = launcher.getCompressor();
         
         if(compressor.getPressureSwitchValue() && compressor.enabled()) {
-            Jagbot.printMessage(Line.kUser1, 1, "Stopping compressor");
+            MessageWindow.write("Compressor stop", 1, 1);
             compressor.stop();
         } else if(!compressor.enabled() && !compressor.getPressureSwitchValue()) {
-            Jagbot.printMessage(Line.kUser1, 1, "Starting compressor");
+            MessageWindow.write("Compressor start", 1, 1);
             compressor.start();
         }
     }
