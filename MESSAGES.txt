@@ -1,0 +1,13 @@
+MODES
+====================
+AUTO MODE ON       - Autonomous mode enabled
+TELE-OP MODE ON    - Tele-op mode enabled
+TEST MODE ON       - Test mode enabled
+
+DOORS
+====================
+LEFT DOOR OPEN     - Left door opening
+LEFT DOOR CLOSE    - Left door closing
+RIGHT DOOR OPEN    - Right door opening
+RIGHT DOOR CLOSE   - Right door closing
+
