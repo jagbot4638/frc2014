@@ -25,6 +25,7 @@
 package org.northwestrobotics.frc2014.utils;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
+import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 
 /**
  * Message window utility
@@ -36,6 +37,9 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
 public class MessageWindow
 {
     private static final DriverStationLCD lcd = DriverStationLCD.getInstance();
+    
+    private static final String[] lines = new String[6];
+    private static int index = 0;
     
     /**
      * Writes a message to the message window.
@@ -77,8 +81,30 @@ public class MessageWindow
         // Update message window
         update();
     }
+    public static void write(String message) {
+        if (index == -1) {
+            String last = null;
+            for (int i = lines.length - 1; i > 0; i--) {
+                String temp = lines[i];
+                lines[i] = last;
+                last = lines[i-1];
+                lines[i-1] = temp;
+            }
+            
+            lines[lines.length - 1] = message;
+        } else {
+            lines[index] = message;
+        }
+        update();
+    }
     
     private static void update() {
+        lcd.println(Line.kUser1, 1, lines[0]);
+        lcd.println(Line.kUser2, 1, lines[1]);
+        lcd.println(Line.kUser3, 1, lines[2]);
+        lcd.println(Line.kUser4, 1, lines[3]);
+        lcd.println(Line.kUser5, 1, lines[4]);
+        lcd.println(Line.kUser6, 1, lines[5]);
         lcd.updateLCD();
     }
 }

@@ -47,9 +47,9 @@ public class RobotMap
         public static final int LEFT_AXIS = 2;
         public static final int RIGHT_AXIS = 4;
         
-        public static final int SHOOT_TRIGGER = 10;
+        public static final int SHOOT_TRIGGER = 8;
         public static final int RETRIEVE_BUTTON = 9;
-        public static final int PASS_BUTTON = 11;
+        public static final int PASS_BUTTON = 7;
     }
     
     /**
@@ -85,8 +85,8 @@ public class RobotMap
         public static final int HARD_STOP_CHANNEL = 1;
         
         // Door motor constants
-        public static final int LEFT_DOOR_CHANNEL = 9;
-        public static final int RIGHT_DOOR_CHANNEL = 10;
+        public static final int LEFT_DOOR_CHANNEL = 5;
+        public static final int RIGHT_DOOR_CHANNEL = 6;
         
         // Time constants (in msec)
         public static final int TIME_TO_LAUNCH_BALL = 1000000;

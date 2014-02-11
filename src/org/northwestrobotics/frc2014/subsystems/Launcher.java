@@ -63,6 +63,11 @@ public class Launcher extends Subsystem
         hardStop.set(false);
     }
     
+    private void setDoorMotors(double speed) {
+        leftDoor.set(speed);
+        rightDoor.set(-speed);
+    }
+    
     /**
      * Closes doors. Pushing/launching out the ball
      * @param speed Force the doors close (0 - 100)
@@ -73,8 +78,7 @@ public class Launcher extends Subsystem
         speed = Math.max(speed, 0);
         
         if(speed > 0) {
-            leftDoor.set(speed / 100.0);
-            rightDoor.set(speed / 100.0);
+            setDoorMotors(speed / 100.0);
         }
     }
     
@@ -82,16 +86,14 @@ public class Launcher extends Subsystem
      * Opens doors.
      */
     public void openDoors() {
-        leftDoor.set(RobotMap.Door.OPEN_SPEED);
-        rightDoor.set(RobotMap.Door.OPEN_SPEED);
+        setDoorMotors(RobotMap.Door.OPEN_SPEED);
     }
     
     /**
      * Closes doors.
      */
     public void closeDoors() {
-        leftDoor.set(RobotMap.Door.CLOSE_SPEED);
-        rightDoor.set(RobotMap.Door.CLOSE_SPEED);
+        setDoorMotors(RobotMap.Door.CLOSE_SPEED);
     }
     
     /**
