@@ -60,7 +60,7 @@ public class Jagbot extends IterativeRobot
      * Initializes autonomous mode code.
      */
     public void autonomousInit() {
-        printMessage(Line.kUser1, 0, "Initializing autonomous mode");
+        printMessage(Line.kUser1, 1, "Initializing autonomous mode");
     }
 
     /**
@@ -74,7 +74,7 @@ public class Jagbot extends IterativeRobot
      * Initializes tele-op mode code (ends autonomous mode).
      */
     public void teleopInit() {
-        printMessage(Line.kUser2, 0, "Initializing tele-op mode");
+        printMessage(Line.kUser2, 1, "Initializing tele-op mode");
     }
 
     /**
@@ -85,7 +85,7 @@ public class Jagbot extends IterativeRobot
     }
 
     public void testInit() {
-        printMessage(Line.kUser3, 0, "Initializing test mode");
+        printMessage(Line.kUser3, 1, "Initializing test mode");
         
         testCommand = new TestCommand();
         testCommand.start();

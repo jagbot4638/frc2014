@@ -52,10 +52,10 @@ public class UpdatePressure extends CommandBase
         Compressor compressor = launcher.getCompressor();
         
         if(compressor.getPressureSwitchValue() && compressor.enabled()) {
-            Jagbot.printMessage(Line.kUser1, 0, "Stopping compressor");
+            Jagbot.printMessage(Line.kUser1, 1, "Stopping compressor");
             compressor.stop();
         } else if(!compressor.enabled() && !compressor.getPressureSwitchValue()) {
-            Jagbot.printMessage(Line.kUser1, 0, "Starting compressor");
+            Jagbot.printMessage(Line.kUser1, 1, "Starting compressor");
             compressor.start();
         }
     }
