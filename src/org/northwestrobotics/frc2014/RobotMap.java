@@ -106,6 +106,9 @@ public class RobotMap
     public static class Door {
         private Door() {}
 
+        public static final int LEFT_STOPPER = -1;
+        public static final int RIGHT_STOPPER = -1;
+        
         public static final int CLOSE_SPEED = 0;
         public static final int OPEN_SPEED = 0;
         

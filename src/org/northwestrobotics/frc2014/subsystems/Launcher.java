@@ -41,9 +41,15 @@ public class Launcher extends Subsystem
     private final SpeedController leftDoor = new Talon(RobotMap.Launcher.LEFT_DOOR_CHANNEL);
     private final SpeedController rightDoor = new Talon(RobotMap.Launcher.RIGHT_DOOR_CHANNEL);    
     private final Solenoid hardStop = new Solenoid(RobotMap.Launcher.HARD_STOP_CHANNEL);
+    
+    private final Solenoid leftDoorStopper = new Solenoid(RobotMap.Door.LEFT_STOPPER);
+    private final Solenoid rightDoorStopper = new Solenoid(RobotMap.Door.RIGHT_STOPPER);
+    
     private final Compressor compressor = new Compressor(RobotMap.Launcher.PRESSURE_SWITCH_CHANNEL, RobotMap.Launcher.COMPRESSOR_RELAY_CHANNEL);
     
     public void initDefaultCommand() {
+        leftDoorStopper.set(true);
+        rightDoorStopper.set(true);
         activateHardStop();
         launchBall(50);
         setDefaultCommand(new UpdatePressure());
