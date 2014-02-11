@@ -41,7 +41,8 @@ public class TestCommand extends CommandBase
      * Initializes the command.
      */
     protected void initialize() {
-        launcher.releaseHardStop();
+        System.out.println("Test mode initialized");
+//        launcher.releaseHardStop();
     }
 
     /**

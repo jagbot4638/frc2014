@@ -84,6 +84,6 @@ public class Jagbot extends IterativeRobot
      * Called periodically during test mode.
      */
     public void testPeriodic() {
-        LiveWindow.run();
+        Scheduler.getInstance().run();
     }
 }

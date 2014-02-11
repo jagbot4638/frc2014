@@ -50,8 +50,10 @@ public class UpdatePressure extends CommandBase
         Compressor compressor = launcher.getCompressor();
         
         if(compressor.getPressureSwitchValue() && compressor.enabled()) {
+            System.out.println("Stopping compressor");
             compressor.stop();
         } else if(!compressor.enabled() && !compressor.getPressureSwitchValue()) {
+            System.out.println("Starting compressor");
             compressor.start();
         }
     }
