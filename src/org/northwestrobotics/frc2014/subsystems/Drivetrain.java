@@ -29,22 +29,22 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.northwestrobotics.frc2014.RobotMap;
-import org.northwestrobotics.frc2014.commands.drivetrain.TeleOpDrive;
+import org.northwestrobotics.frc2014.commands.drivetrain.TeleopDrive;
 
 /**
- * Drivetrain subsystem
- * 
- * Represents the drivetrain subsystem of the robot.
+ * Motor subsystem
+ 
+ Represents the drivetrain subsystem of the robot.
  * 
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
 public class Drivetrain extends Subsystem 
 {
-    // Motors
-    private final SpeedController frontLeftMotor = new Talon(RobotMap.Drivetrain.FRONT_LEFT_MOTOR_CONTROLLER);
-    private final SpeedController frontRightMotor = new Talon(RobotMap.Drivetrain.FRONT_RIGHT_MOTOR_CONTROLLER);
-    private final SpeedController rearLeftMotor = new Talon(RobotMap.Drivetrain.REAR_LEFT_MOTOR_CONTROLLER);
-    private final SpeedController rearRightMotor = new Talon(RobotMap.Drivetrain.REAR_RIGHT_MOTOR_CONTROLLER);
+    // Motor
+    private final SpeedController frontLeftMotor = new Talon(RobotMap.Motor.FRONT_LEFT_MOTOR);
+    private final SpeedController frontRightMotor = new Talon(RobotMap.Motor.FRONT_RIGHT_MOTOR);
+    private final SpeedController rearLeftMotor = new Talon(RobotMap.Motor.REAR_LEFT_MOTOR);
+    private final SpeedController rearRightMotor = new Talon(RobotMap.Motor.REAR_RIGHT_MOTOR);
     
     // Driver
     private final RobotDrive driver = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
@@ -63,7 +63,7 @@ public class Drivetrain extends Subsystem
      * Initializes the drivetrain.
      */
     public void initDefaultCommand() {
-        setDefaultCommand(new TeleOpDrive());
+        setDefaultCommand(new TeleopDrive());
         
         // Invert right motor
         // (this may not be necessary now that we've fixed the polarity issue in the hardware)

@@ -22,58 +22,47 @@
  * THE SOFTWARE.
  */
 
-package org.northwestrobotics.frc2014.commands.drivetrain;
+package org.northwestrobotics.frc2014.commands.launcher;
 
-import org.northwestrobotics.frc2014.commands.CommandBase;
+import org.northwestrobotics.frc2014.RobotMap;
+import org.northwestrobotics.frc2014.commands.TimedCommand;
 
 /**
- * Tele-op drive command
+ * Pass ball command
  * 
- * Enables and managed tele-op drive mode.
+ * Pushes the ball from inside of the robot through the other side.
  * 
+ * @author Joshua Fleming <js.fleming@outlook.com>
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class TeleOpDrive extends CommandBase 
-{
+public class PassBall extends TimedCommand
+{   
+    private final int force;
+    
     /**
-     * Initializes tele-op drive.
-     */
-    public TeleOpDrive() {
-        requires(drivetrain);
-    }
-
-    /**
-     * Initializes command.
-     */
-    protected void initialize() {}
-
-    /**
-     * Executes command.     
-     */
-    protected void execute() {
-        drivetrain.tankMove(oi.getLeftSpeed(), oi.getRightSpeed());
-    }
-
-    /**
-     * Checks if the command is finished
+     * Pushes the ball out of the robot with a given force.
      * 
-     * @return If the command is finished
+     * @param force The force to push the ball with (1-100)
      */
-    protected boolean isFinished() {
-        return false;
+    public PassBall(int force) {
+        super(RobotMap.Time.TIME_TO_PASS_BALL);
+        requires(launcher);
+        this.force = force;
     }
 
     /**
-     * Called after the command ends.
+     * Releases the hard stop and launches the ball.
      */
-    protected void end() {
-        drivetrain.stop();
+    protected void commence() {
+        launcher.releaseHardStop();
+        launcher.launchBall(force);
     }
 
-    /**
-     * Called if the command is interrupted by another command.
+    /** 
+     * Opens the doors and activates the hard stop.
      */
-    protected void interrupted() {
-        end();
+    protected void cease() {
+       launcher.openDoors();
+       launcher.activateHardStop();
     }
 }

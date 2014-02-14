@@ -47,6 +47,6 @@ public class TurnAndScore extends CommandGroupBase
         addSequential(new DriveStraight(RobotMap.Direction.FORWARD, RobotMap.Autonomous.TIME_TO_REACH_WALL));
         addSequential(new Rotate(-direction));
         addSequential(new DriveStraight(RobotMap.Direction.FORWARD, RobotMap.Autonomous.TIME_TO_REACH_GOAL));
-        addSequential(getOI().getShootBallCommand());
+        addSequential(getOI().getShootCommand());
     }
 }

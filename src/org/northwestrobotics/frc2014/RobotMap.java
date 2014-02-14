@@ -33,93 +33,127 @@ package org.northwestrobotics.frc2014;
  */
 public class RobotMap 
 {    
-    public static final int GAMEPAD = 1;
-
     /**
-     * Defines gamepad constants.
+     * Button constants.
      */
-    public static class Gamepad {
+    public static class Button 
+    {
+        private Button() {}
+        
+        // @todo Define missing button bindings
+        public static final int RIGHT_TRIGGER = 8;
+        public static final int LEFT_TRIGGER = 7;
+        public static final int RIGHT_BUMPER = 6;
+        public static final int LEFT_BUMPER = 5;
+        public static final int D_PAD = 0;
+        public static final int LEFT_STICK = 0;
+        public static final int RIGHT_STICK = 0;
+        public static final int X_BUTTON = 1;
+        public static final int Y_BUTTON = 4;
+        public static final int A_BUTTON = 2;
+        public static final int B_BUTTON = 3;
+        public static final int BACK_BUTTON = 9;
+        public static final int START_BUTTON = 10;
+    }
+    
+    /**
+     * Gamepad constants.
+     */
+    public static class Gamepad 
+    {
         private Gamepad() {}
-
+        
         public static final int DRIVER_GAMEPAD = 1;
         public static final int ACTUATOR_GAMEPAD = 2;
-        
-        public static final int LEFT_AXIS = 2;
-        public static final int RIGHT_AXIS = 4;
-        
-        public static final int SHOOT_TRIGGER = 8;
-        public static final int RETRIEVE_BUTTON = 9;
-        public static final int PASS_BUTTON = 7;
     }
     
     /**
-     * Defines drivetrain constants.
+     * Motor constants.
      */
-    public static class Drivetrain {
-        private Drivetrain() {}
+    public static class Motor 
+    {
+        private Motor() {}
         
         // Front left motor controller
-        public static final int FRONT_LEFT_MOTOR_CONTROLLER = 1;
+        public static final int FRONT_LEFT_MOTOR = 1;
         
         // Front right motor controller
-        public static final int FRONT_RIGHT_MOTOR_CONTROLLER = 4;
+        public static final int FRONT_RIGHT_MOTOR = 4;
         
         // Rear left motor controller
-        public static final int REAR_LEFT_MOTOR_CONTROLLER = 2;
+        public static final int REAR_LEFT_MOTOR = 2;
         
         // Rear right motor controller
-        public static final int REAR_RIGHT_MOTOR_CONTROLLER = 3;
+        public static final int REAR_RIGHT_MOTOR = 3;
+        
+        // Winch motors
+        public static final int LEFT_WINCH_MOTOR = 5;
+        public static final int RIGHT_WINCH_MOTOR = 6;
     }
     
     /**
-     * Defines launcher constants.
-     * 
-     * @todo Define actual values
+     * Pneumatic constants.
      */
-    public static class Launcher {
-        private Launcher() {}
-        
-        // Pneumatic constants
-        public static final int PRESSURE_SWITCH_CHANNEL = 1;
-        public static final int COMPRESSOR_RELAY_CHANNEL = 1;
-        public static final int HARD_STOP_CHANNEL = 1;
-        
-        // Door motor constants
-        public static final int LEFT_DOOR_CHANNEL = 5;
-        public static final int RIGHT_DOOR_CHANNEL = 6;
-        
-        // Time constants (in msec)
-        public static final int TIME_TO_LAUNCH_BALL = 1000000;
-        public static final int TIME_TO_CLOSE_DOORS = 2000000;
-        public static final int DOOR_CLOSE_SPEED = 10;
-        
-        // Force constants
-        public static final int SHOOT_FORCE = 50;
-        public static final int PASS_FORCE = 25;
+    public static class Pneumatic 
+    {
+        private Pneumatic() {}
+    
+        public static final int PRESSURE_SWITCH = 1;
+        public static final int COMPRESSOR = 1;
+        public static final int HARD_STOP = 1;
     }
     
     /**
-     * Defines door constants.
-     * 
-     * @todo Define actual values
+     * Solenoid constants.
      */
-    public static class Door {
-        private Door() {}
-
-        public static final int LEFT_STOPPER = -1;
-        public static final int RIGHT_STOPPER = -1;
+    public static class Solenoid
+    {
+        private Solenoid() {}
         
-        public static final int CLOSE_SPEED = 0;
-        public static final int OPEN_SPEED = 0;
+        public static final int LEFT_DOOR_LATCH = 0;
+        public static final int RIGHT_DOOR_LATCH = 1;
+    }
+    
+    /**
+     * Force constants.
+     */
+    public static class Force 
+    {
+        private Force() {}
         
-        public static final int TIME_TO_CLOSE = 1000000;
-        public static final int TIME_TO_OPEN = 1000000;
+        // Shoot force constants
+        public static final int SHOOT_FORCE_LOW = 25;
+        public static final int SHOOT_FORCE_MED = 50;
+        public static final int SHOOT_FORCE_HIGH = 75;
+        public static final int SHOOT_FORCE_MAX = 100;
+        
+        // Pass force constants
+        public static final int PASS_FORCE_LOW = 15;
+        public static final int PASS_FORCE_MED = 30;
+        public static final int PASS_FORCE_HIGH = 45;
+        public static final int PASS_FORCE_MAX = 60;
+        
+        // Winch force constants
+        public static final int GRAB_FORCE = 75;
+    }
+    
+    /**
+     * Time constants.
+     */
+    public static class Time 
+    {
+        private Time() {}
+        
+        public static final int TIME_TO_SHOOT_BALL = 1000000;
+        public static final int TIME_TO_PASS_BALL = 1000000;
+        public static final int TIME_TO_GRAB_BALL = 2000000;
     }
     
     /**
      * Defines autonomous constants.
      */
-    public static class Autonomous {
+    public static class Autonomous 
+    {
         private Autonomous() {}
         
         // Time constants (in msec)
@@ -130,13 +164,13 @@ public class RobotMap
     }
 
     /**
-     * Defines directional constants.
+     * Direction constants.
      */
     public static class Direction
     {
         private Direction() {}
         
-        // Direction constants
         public static final int FORWARD = 1;
+        public static final int BACKWARD = -1;
     }
 }

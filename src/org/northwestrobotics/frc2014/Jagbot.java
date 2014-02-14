@@ -25,13 +25,11 @@
 package org.northwestrobotics.frc2014;
 
 import edu.wpi.first.wpilibj.DriverStationLCD;
-import edu.wpi.first.wpilibj.DriverStationLCD.Line;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TestCommand;
-import org.northwestrobotics.frc2014.utils.MessageWindow;
 
 /**
  * Main robot class
@@ -60,9 +58,7 @@ public class Jagbot extends IterativeRobot
     /**
      * Initializes autonomous mode code.
      */
-    public void autonomousInit() {
-        MessageWindow.write("Auto mode init", 1, 1);
-    }
+    public void autonomousInit() {}
 
     /**
      * Called periodically during autonomous mode.
@@ -74,9 +70,7 @@ public class Jagbot extends IterativeRobot
     /**
      * Initializes tele-op mode code (ends autonomous mode).
      */
-    public void teleopInit() {
-        MessageWindow.write("Tele-op mode init", 1, 1);
-    }
+    public void teleopInit() {}
 
     /**
      * Called periodically during tele-op mode.
@@ -86,8 +80,6 @@ public class Jagbot extends IterativeRobot
     }
 
     public void testInit() {
-        MessageWindow.write("Test mode init", 1, 1);
-        
         testCommand = new TestCommand();
         testCommand.start();
     }

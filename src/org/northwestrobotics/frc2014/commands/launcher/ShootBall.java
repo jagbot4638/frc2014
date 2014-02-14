@@ -35,7 +35,7 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * @author Joshua Fleming <js.fleming@outlook.com>
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class PushBall extends TimedCommand
+public class ShootBall extends TimedCommand
 {   
     private final int force;
     
@@ -44,14 +44,10 @@ public class PushBall extends TimedCommand
      * 
      * @param force The force to push the ball with (1-100)
      */
-    public PushBall(int force) {
-        super(RobotMap.Launcher.TIME_TO_LAUNCH_BALL);
+    public ShootBall(int force) {
+        super(RobotMap.Time.TIME_TO_SHOOT_BALL);
         requires(launcher);
         this.force = force;
-    }
-    
-    public PushBall() {
-        this(100);
     }
 
     /**

@@ -38,14 +38,14 @@ import org.northwestrobotics.frc2014.commands.launcher.UpdatePressure;
  */
 public class Launcher extends Subsystem 
 {
-    private final SpeedController leftDoor = new Talon(RobotMap.Launcher.LEFT_DOOR_CHANNEL);
-    private final SpeedController rightDoor = new Talon(RobotMap.Launcher.RIGHT_DOOR_CHANNEL);    
-    private final Solenoid hardStop = new Solenoid(RobotMap.Launcher.HARD_STOP_CHANNEL);
+    private final SpeedController leftDoor = new Talon(RobotMap.Motor.LEFT_WINCH_MOTOR);
+    private final SpeedController rightDoor = new Talon(RobotMap.Motor.RIGHT_WINCH_MOTOR);    
+    private final Solenoid hardStop = new Solenoid(RobotMap.Pneumatic.HARD_STOP);
     
-    private final Solenoid leftDoorStopper = new Solenoid(RobotMap.Door.LEFT_STOPPER);
-    private final Solenoid rightDoorStopper = new Solenoid(RobotMap.Door.RIGHT_STOPPER);
+    private final Solenoid leftDoorStopper = new Solenoid(RobotMap.Solenoid.LEFT_DOOR_LATCH);
+    private final Solenoid rightDoorStopper = new Solenoid(RobotMap.Solenoid.RIGHT_DOOR_LATCH);
     
-    private final Compressor compressor = new Compressor(RobotMap.Launcher.PRESSURE_SWITCH_CHANNEL, RobotMap.Launcher.COMPRESSOR_RELAY_CHANNEL);
+    private final Compressor compressor = new Compressor(RobotMap.Pneumatic.PRESSURE_SWITCH, RobotMap.Pneumatic.COMPRESSOR);
     
     public void initDefaultCommand() {
         leftDoorStopper.set(true);
@@ -86,14 +86,16 @@ public class Launcher extends Subsystem
      * Opens doors.
      */
     public void openDoors() {
-        setDoorMotors(RobotMap.Door.OPEN_SPEED);
+        setDoorMotors(0);
     }
     
     /**
      * Closes doors.
+     * 
+     * @param force The force to close with (0-100)
      */
-    public void closeDoors() {
-        setDoorMotors(RobotMap.Door.CLOSE_SPEED);
+    public void closeDoors(int force) {
+        setDoorMotors(force);
     }
     
     /**

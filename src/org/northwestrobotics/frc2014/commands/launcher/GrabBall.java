@@ -24,54 +24,34 @@
 
 package org.northwestrobotics.frc2014.commands.launcher;
 
-import edu.wpi.first.wpilibj.Compressor;
-import org.northwestrobotics.frc2014.commands.CommandBase;
+import org.northwestrobotics.frc2014.RobotMap;
+import org.northwestrobotics.frc2014.commands.TimedCommand;
 
 /**
- * Update pressure command
+ * Pick up ball command
  * 
- * Updates the pressure of the compressor if it is less than full.
+ * Makes the robot pick up a ball within range of the doors.
  * 
- * @author Jamison Bryant <jbryant@outlook.com>
+ * @author Joshua Fleming <js.fleming@outlook.com>
  */
-public class UpdatePressure extends CommandBase
-{   
-    public UpdatePressure() {}
-
-    /**
-     * Initializes the command.
-     */
-    protected void initialize() {}
-
-    /**
-     * Executes the command.
-     */
-    protected void execute() {
-        Compressor compressor = launcher.getCompressor();
-        
-        if(compressor.getPressureSwitchValue() && compressor.enabled()) {
-            compressor.stop();
-        } else if(!compressor.enabled() && !compressor.getPressureSwitchValue()) {
-            compressor.start();
-        }
+public class GrabBall extends TimedCommand 
+{    
+    public GrabBall() {
+        super(RobotMap.Time.TIME_TO_GRAB_BALL);
+        requires(launcher);
     }
 
     /**
-     * Called after the command ends.
+     * Closes the doors slowly.
      */
-    protected void end() {}
+    protected void commence() {
+        launcher.closeDoors(RobotMap.Force.GRAB_FORCE);
+    }
 
     /**
-     * Called if the command is interrupted by another command.
+     * Stops closing the doors.
      */
-    protected void interrupted() {}
-    
-    /**
-     * Checks if the command is finished
-     * 
-     * @return If the command is finished
-     */
-    protected boolean isFinished() {
-        return false;
+    protected void cease() {
+        launcher.haltDoors();
     }
 }

@@ -22,36 +22,58 @@
  * THE SOFTWARE.
  */
 
-package org.northwestrobotics.frc2014.commands.launcher;
+package org.northwestrobotics.frc2014.commands.drivetrain;
 
-import org.northwestrobotics.frc2014.RobotMap;
-import org.northwestrobotics.frc2014.commands.TimedCommand;
+import org.northwestrobotics.frc2014.commands.CommandBase;
 
 /**
- * Pick up ball command
+ * Tele-op drive command
  * 
- * Makes the robot pick up a ball within range of the doors.
+ * Enables and managed tele-op drive mode.
  * 
- * @author Joshua Fleming <js.fleming@outlook.com>
+ * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class PickUpBall extends TimedCommand 
-{    
-    public PickUpBall() {
-        super(RobotMap.Launcher.TIME_TO_CLOSE_DOORS);
-        requires(launcher);
+public class TeleopDrive extends CommandBase 
+{
+    /**
+     * Initializes tele-op drive.
+     */
+    public TeleopDrive() {
+        requires(drivetrain);
     }
 
     /**
-     * Closes the doors slowly.
+     * Initializes command.
      */
-    protected void commence() {
-        launcher.closeDoors();
+    protected void initialize() {}
+
+    /**
+     * Executes command.     
+     */
+    protected void execute() {
+        drivetrain.tankMove(oi.getLeftStickValue(oi.getDriverGamepad()), oi.getRightStickValue(oi.getDriverGamepad()));
     }
 
     /**
-     * Stops closing the doors.
+     * Checks if the command is finished
+     * 
+     * @return If the command is finished
      */
-    protected void cease() {
-        launcher.haltDoors();
+    protected boolean isFinished() {
+        return false;
+    }
+
+    /**
+     * Called after the command ends.
+     */
+    protected void end() {
+        drivetrain.stop();
+    }
+
+    /**
+     * Called if the command is interrupted by another command.
+     */
+    protected void interrupted() {
+        end();
     }
 }

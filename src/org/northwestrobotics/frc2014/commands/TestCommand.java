@@ -33,17 +33,12 @@ package org.northwestrobotics.frc2014.commands;
  */
 public class TestCommand extends CommandBase
 {
-    public TestCommand() {
-        requires(launcher);
-    }
+    public TestCommand() {}
 
     /**
      * Initializes the command.
      */
-    protected void initialize() {
-        launcher.closeDoors();
-//        launcher.releaseHardStop();
-    }
+    protected void initialize() {}
 
     /**
      * Executes the command.
