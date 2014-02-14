@@ -190,7 +190,7 @@ public class OI
      * @return The value of the D-Pad
      */
     public double getDpadValue(Joystick gamepad) {
-        MessageWindow.write(null);
+        MessageWindow.write("DPAD: " + Double.toString(gamepad.getRawAxis(RobotMap.Button.D_PAD)));
         return gamepad.getRawAxis(RobotMap.Button.D_PAD);
     }
 
