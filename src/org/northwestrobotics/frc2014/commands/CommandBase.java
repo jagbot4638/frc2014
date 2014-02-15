@@ -26,8 +26,8 @@ package org.northwestrobotics.frc2014.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import org.northwestrobotics.frc2014.OI;
-import org.northwestrobotics.frc2014.subsystems.Launcher;
-import org.northwestrobotics.frc2014.subsystems.Drivetrain;
+import org.northwestrobotics.frc2014.subsystems.LauncherSubsystem;
+import org.northwestrobotics.frc2014.subsystems.DrivetrainSubsystem;
 
 /**
  * Command base
@@ -43,15 +43,15 @@ public abstract class CommandBase extends Command
     protected static OI oi;
     
     // Subsystems
-    protected static Drivetrain drivetrain;
-    protected static Launcher launcher;
+    protected static DrivetrainSubsystem drivetrain;
+    protected static LauncherSubsystem launcher;
 
     /**
      * Initializes the OI and the subsystems.
      */
     public static void init() {
-        drivetrain = new Drivetrain();
-        launcher = new Launcher();
+        drivetrain = new DrivetrainSubsystem();
+        launcher = new LauncherSubsystem();
         oi = new OI();
     }
 

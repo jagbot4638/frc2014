@@ -38,7 +38,7 @@ import org.northwestrobotics.frc2014.commands.drivetrain.TeleopDrive;
  * 
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class Drivetrain extends Subsystem 
+public class DrivetrainSubsystem extends Subsystem 
 {
     // Motor
     private final SpeedController frontLeftMotor = new Talon(RobotMap.Motor.FRONT_LEFT_MOTOR);

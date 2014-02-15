@@ -32,31 +32,25 @@ import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.launcher.UpdatePressure;
+import org.northwestrobotics.frc2014.utils.MessageWindow;
 
 /**
- *
- * @author Saagar
+ * LauncherSubsystem subsystem.
+ * 
+ * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class Launcher extends Subsystem 
+public class LauncherSubsystem extends Subsystem 
 {
     private final SpeedController leftDoor = new Talon(RobotMap.Motor.LEFT_WINCH_MOTOR);
     private final SpeedController rightDoor = new Talon(RobotMap.Motor.RIGHT_WINCH_MOTOR);    
     private final Solenoid hardStop = new Solenoid(RobotMap.Pneumatic.HARD_STOP);
     private final Compressor compressor = new Compressor(RobotMap.Pneumatic.PRESSURE_SWITCH, RobotMap.Pneumatic.COMPRESSOR);
-    
     private final Relay doorLatch = new Relay(RobotMap.Relay.LATCH_RELAY);
     
     public void initDefaultCommand() {
-        // Open door latches
-        doorLatch.set(Relay.Value.kOn);
-        
-        // Activate hard stop
+        retractDoorLatches();
         extendHardStop();
-        
-        // Launch ball
         launchBall(50);
-        
-        // Update pressure
         setDefaultCommand(new UpdatePressure());
     }
     
@@ -72,6 +66,14 @@ public class Launcher extends Subsystem
      */
     public void retractHardStop() {
         hardStop.set(false);
+    }
+    
+    /**
+     * Retracts door latches.
+     */
+    public void retractDoorLatches() {
+        MessageWindow.write("Ret door latch");
+        doorLatch.set(Relay.Value.kOn);
     }
     
     private void setDoorMotors(double speed) {

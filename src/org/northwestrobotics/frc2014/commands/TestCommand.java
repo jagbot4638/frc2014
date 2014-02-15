@@ -33,7 +33,10 @@ package org.northwestrobotics.frc2014.commands;
  */
 public class TestCommand extends CommandBase
 {
-    public TestCommand() {}
+    public TestCommand() {
+        requires(launcher);
+        launcher.retractDoorLatches();
+    }
 
     /**
      * Initializes the command.
