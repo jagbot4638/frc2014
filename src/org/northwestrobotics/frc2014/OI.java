@@ -26,7 +26,6 @@ package org.northwestrobotics.frc2014;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.InternalButton;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import org.northwestrobotics.frc2014.commands.launcher.GrabBall;
@@ -191,7 +190,6 @@ public class OI
      * @return The value of the D-Pad
      */
     public double getDpadValue(Joystick gamepad) {
-        MessageWindow.write("DPAD: " + Double.toString(gamepad.getRawAxis(RobotMap.Button.D_PAD)));
         return gamepad.getRawAxis(RobotMap.Button.D_PAD);
     }
 
