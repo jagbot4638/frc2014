@@ -27,12 +27,8 @@ package org.northwestrobotics.frc2014;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TestCommand;
-import org.northwestrobotics.frc2014.commands.launcher.GrabBall;
-import org.northwestrobotics.frc2014.commands.launcher.PassBall;
-import org.northwestrobotics.frc2014.commands.launcher.ShootBall;
 import org.northwestrobotics.frc2014.utils.MessageWindow;
 
 /**
@@ -54,13 +50,8 @@ public class Jagbot extends IterativeRobot
         // Initialize all subsystems
         CommandBase.init();
         
-        // Add commands to SmartDashboard
-        SmartDashboard.putData("Grab", new GrabBall());
-        SmartDashboard.putData("Pass", new PassBall(10));
-        SmartDashboard.putData("Shoot", new ShootBall(10));
-        
         // Initalize test command
-        MessageWindow.write("1 - Robot init");
+        MessageWindow.write(1, "Robot init");
         testCommand = new TestCommand();
         testCommand.start();
     }

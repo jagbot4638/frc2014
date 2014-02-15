@@ -36,7 +36,7 @@ import org.northwestrobotics.frc2014.utils.MessageWindow;
 public class TestCommand extends CommandBase
 {
     public TestCommand() {
-        MessageWindow.write("2 - Test cmd");
+        MessageWindow.write(2, "Test cmd");
         requires(launcher);
         
     }
@@ -50,7 +50,7 @@ public class TestCommand extends CommandBase
      * Executes the command.
      */
     protected void execute() {
-        MessageWindow.write("3 - Test exec");
+        MessageWindow.write(3, "Test exec");
         launcher.retractDoorLatches();
     }
 
