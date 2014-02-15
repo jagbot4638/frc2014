@@ -33,6 +33,7 @@ import org.northwestrobotics.frc2014.commands.TestCommand;
 import org.northwestrobotics.frc2014.commands.launcher.GrabBall;
 import org.northwestrobotics.frc2014.commands.launcher.PassBall;
 import org.northwestrobotics.frc2014.commands.launcher.ShootBall;
+import org.northwestrobotics.frc2014.utils.MessageWindow;
 
 /**
  * Main robot class
@@ -57,6 +58,11 @@ public class Jagbot extends IterativeRobot
         SmartDashboard.putData("Grab", new GrabBall());
         SmartDashboard.putData("Pass", new PassBall(10));
         SmartDashboard.putData("Shoot", new ShootBall(10));
+        
+        // Initalize test command
+        MessageWindow.write("1 - Robot init");
+        testCommand = new TestCommand();
+        testCommand.start();
     }
 
     /**
@@ -83,10 +89,7 @@ public class Jagbot extends IterativeRobot
         Scheduler.getInstance().run();
     }
 
-    public void testInit() {
-        testCommand = new TestCommand();
-        testCommand.start();
-    }
+    public void testInit() {}
     
     /**
      * Called periodically during test mode.

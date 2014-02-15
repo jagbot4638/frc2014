@@ -24,6 +24,8 @@
 
 package org.northwestrobotics.frc2014.commands;
 
+import org.northwestrobotics.frc2014.utils.MessageWindow;
+
 /**
  * Test command
  * 
@@ -34,6 +36,7 @@ package org.northwestrobotics.frc2014.commands;
 public class TestCommand extends CommandBase
 {
     public TestCommand() {
+        MessageWindow.write("2 - Test cmd");
         requires(launcher);
         
     }
@@ -47,6 +50,7 @@ public class TestCommand extends CommandBase
      * Executes the command.
      */
     protected void execute() {
+        MessageWindow.write("3 - Test exec");
         launcher.retractDoorLatches();
     }
 

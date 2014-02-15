@@ -72,7 +72,7 @@ public class LauncherSubsystem extends Subsystem
      * Retracts door latches.
      */
     public void retractDoorLatches() {
-        MessageWindow.write("Ret door latch");
+        MessageWindow.write("4 - Ret door latch");
         doorLatch.set(Relay.Value.kOn);
     }
     
