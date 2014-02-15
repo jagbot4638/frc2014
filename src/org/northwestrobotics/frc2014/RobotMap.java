@@ -104,14 +104,14 @@ public class RobotMap
     }
     
     /**
-     * Solenoid constants.
+     * Relay constants.
      */
-    public static class Solenoid
+    public static class Relay
     {
-        private Solenoid() {}
+        private Relay() {}
         
-        public static final int LEFT_DOOR_LATCH = 0;
-        public static final int RIGHT_DOOR_LATCH = 1;
+        public static final int LATCH_RELAY = 1;
+        public static final int COMPRESSOR_RELAY = 2;
     }
     
     /**

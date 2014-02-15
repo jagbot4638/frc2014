@@ -54,7 +54,7 @@ public class ShootBall extends TimedCommand
      * Releases the hard stop and launches the ball.
      */
     protected void commence() {
-        launcher.releaseHardStop();
+        launcher.retractHardStop();
         launcher.launchBall(force);
         
     }
@@ -64,6 +64,6 @@ public class ShootBall extends TimedCommand
      */
     protected void cease() {
        launcher.openDoors();
-       launcher.activateHardStop();
+       launcher.extendHardStop();
     }
 }

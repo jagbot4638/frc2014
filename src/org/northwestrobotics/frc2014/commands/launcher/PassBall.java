@@ -54,7 +54,7 @@ public class PassBall extends TimedCommand
      * Releases the hard stop and launches the ball.
      */
     protected void commence() {
-        launcher.releaseHardStop();
+        launcher.retractHardStop();
         launcher.launchBall(force);
     }
 
@@ -63,6 +63,6 @@ public class PassBall extends TimedCommand
      */
     protected void cease() {
        launcher.openDoors();
-       launcher.activateHardStop();
+       launcher.extendHardStop();
     }
 }

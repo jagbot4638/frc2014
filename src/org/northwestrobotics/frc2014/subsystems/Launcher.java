@@ -40,26 +40,35 @@ public class Launcher extends Subsystem
 {
     private final SpeedController leftDoor = new Talon(RobotMap.Motor.LEFT_WINCH_MOTOR);
     private final SpeedController rightDoor = new Talon(RobotMap.Motor.RIGHT_WINCH_MOTOR);    
-    private final Solenoid hardStop = new Solenoid(RobotMap.Pneumatic.HARD_STOP);
-    
-    private final Solenoid leftDoorStopper = new Solenoid(RobotMap.Solenoid.LEFT_DOOR_LATCH);
-    private final Solenoid rightDoorStopper = new Solenoid(RobotMap.Solenoid.RIGHT_DOOR_LATCH);
-    
+    private final Solenoid hardStop = new Solenoid(RobotMap.Pneumatic.HARD_STOP);    
+    private final Solenoid doorLatch = new Solenoid(RobotMap.Relay.LATCH_RELAY);
     private final Compressor compressor = new Compressor(RobotMap.Pneumatic.PRESSURE_SWITCH, RobotMap.Pneumatic.COMPRESSOR);
     
     public void initDefaultCommand() {
-        leftDoorStopper.set(true);
-        rightDoorStopper.set(true);
-        activateHardStop();
+        // Open door latches
+        doorLatch.set(true);
+        
+        // Activate hard stop
+        extendHardStop();
+        
+        // Launch ball
         launchBall(50);
+        
+        // Update pressure
         setDefaultCommand(new UpdatePressure());
     }
     
-    public void activateHardStop() {
+    /**
+     * Extends hard stop.
+     */
+    public void extendHardStop() {
         hardStop.set(true);
     }
     
-    public void releaseHardStop() {
+    /**
+     * Retracts hard stop.
+     */
+    public void retractHardStop() {
         hardStop.set(false);
     }
     
@@ -69,16 +78,17 @@ public class Launcher extends Subsystem
     }
     
     /**
-     * Closes doors. Pushing/launching out the ball
-     * @param speed Force the doors close (0 - 100)
+     * Launches ball with a force.
+     * 
+     * @param force Force the doors close (0 - 100)
      */
-    public void launchBall(int speed) {
+    public void launchBall(int force) {
         // Limits speed to max value of 100 and min value of 0
-        speed = Math.min(speed, 100);
-        speed = Math.max(speed, 0);
+        force = Math.min(force, 100);
+        force = Math.max(force, 0);
         
-        if(speed > 0) {
-            setDoorMotors(speed / 100.0);
+        if(force > 0) {
+            setDoorMotors(force / 100.0);
         }
     }
     
@@ -95,7 +105,7 @@ public class Launcher extends Subsystem
      * @param force The force to close with (0-100)
      */
     public void closeDoors(int force) {
-        setDoorMotors(force);
+        setDoorMotors(force / 100.0);
     }
     
     /**
