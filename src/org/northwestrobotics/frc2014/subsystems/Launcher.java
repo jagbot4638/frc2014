@@ -25,6 +25,7 @@
 package org.northwestrobotics.frc2014.subsystems;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.Relay;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
@@ -40,13 +41,14 @@ public class Launcher extends Subsystem
 {
     private final SpeedController leftDoor = new Talon(RobotMap.Motor.LEFT_WINCH_MOTOR);
     private final SpeedController rightDoor = new Talon(RobotMap.Motor.RIGHT_WINCH_MOTOR);    
-    private final Solenoid hardStop = new Solenoid(RobotMap.Pneumatic.HARD_STOP);    
-    private final Solenoid doorLatch = new Solenoid(RobotMap.Relay.LATCH_RELAY);
+    private final Solenoid hardStop = new Solenoid(RobotMap.Pneumatic.HARD_STOP);
     private final Compressor compressor = new Compressor(RobotMap.Pneumatic.PRESSURE_SWITCH, RobotMap.Pneumatic.COMPRESSOR);
+    
+    private final Relay doorLatch = new Relay(RobotMap.Relay.LATCH_RELAY);
     
     public void initDefaultCommand() {
         // Open door latches
-        doorLatch.set(true);
+        doorLatch.set(Relay.Value.kOn);
         
         // Activate hard stop
         extendHardStop();

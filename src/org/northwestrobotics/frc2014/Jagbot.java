@@ -46,36 +46,18 @@ import org.northwestrobotics.frc2014.commands.launcher.ShootBall;
 public class Jagbot extends IterativeRobot 
 {   
     private Command testCommand;
-    private static DriverStationLCD lcd;
     
     /**
      * Runs robot initialization code.
      */
     public void robotInit() {
-        // Initialize Driver Station LCD
-        lcd = DriverStationLCD.getInstance();
-        
         // Initialize all subsystems
         CommandBase.init();
         
         // Add commands to SmartDashboard
-        SmartDashboard.putData("GrabBall", new GrabBall());
-        SmartDashboard.putData("PassBall (10)", new PassBall(10));
-        SmartDashboard.putData("PassBall (20)", new PassBall(10));
-        SmartDashboard.putData("PassBall (30)", new PassBall(10));
-        SmartDashboard.putData("PassBall (40)", new PassBall(10));
-        SmartDashboard.putData("PassBall (50)", new PassBall(10));
-        SmartDashboard.putData("PassBall (60)", new PassBall(10));
-        SmartDashboard.putData("ShootBall (10)", new ShootBall(10));
-        SmartDashboard.putData("ShootBall (20)", new ShootBall(20));
-        SmartDashboard.putData("ShootBall (30)", new ShootBall(30));
-        SmartDashboard.putData("ShootBall (40)", new ShootBall(40));
-        SmartDashboard.putData("ShootBall (50)", new ShootBall(50));
-        SmartDashboard.putData("ShootBall (60)", new ShootBall(60));
-        SmartDashboard.putData("ShootBall (70)", new ShootBall(70));
-        SmartDashboard.putData("ShootBall (80)", new ShootBall(80));
-        SmartDashboard.putData("ShootBall (90)", new ShootBall(90));
-        SmartDashboard.putData("ShootBall (100)", new ShootBall(100));
+        SmartDashboard.putData("Grab", new GrabBall());
+        SmartDashboard.putData("Pass", new PassBall(10));
+        SmartDashboard.putData("Shoot", new ShootBall(10));
     }
 
     /**
