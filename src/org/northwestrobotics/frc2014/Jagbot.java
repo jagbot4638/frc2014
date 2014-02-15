@@ -49,11 +49,6 @@ public class Jagbot extends IterativeRobot
     public void robotInit() {
         // Initialize all subsystems
         CommandBase.init();
-        
-        // Initalize test command
-        MessageWindow.write(1, "Robot init");
-        testCommand = new TestCommand();
-        testCommand.start();
     }
 
     /**
@@ -71,7 +66,12 @@ public class Jagbot extends IterativeRobot
     /**
      * Initializes tele-op mode code (ends autonomous mode).
      */
-    public void teleopInit() {}
+    public void teleopInit() {
+        // Initalize test command
+        MessageWindow.write(1, "Robot init");
+        testCommand = new TestCommand();
+        testCommand.start();
+    }
 
     /**
      * Called periodically during tele-op mode.

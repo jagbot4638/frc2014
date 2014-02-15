@@ -31,7 +31,6 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.northwestrobotics.frc2014.commands.launcher.GrabBall;
 import org.northwestrobotics.frc2014.commands.launcher.PassBall;
 import org.northwestrobotics.frc2014.commands.launcher.ShootBall;
-import org.northwestrobotics.frc2014.utils.MessageWindow;
 
 /**
  * Operator interface class
