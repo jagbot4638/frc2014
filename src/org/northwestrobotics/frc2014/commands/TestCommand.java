@@ -35,7 +35,7 @@ public class TestCommand extends CommandBase
 {
     public TestCommand() {
         requires(launcher);
-        launcher.retractDoorLatches();
+        
     }
 
     /**
@@ -46,7 +46,9 @@ public class TestCommand extends CommandBase
     /**
      * Executes the command.
      */
-    protected void execute() {}
+    protected void execute() {
+        launcher.retractDoorLatches();
+    }
 
     /**
      * Ends the command.
