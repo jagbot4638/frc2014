@@ -28,8 +28,12 @@ import edu.wpi.first.wpilibj.DriverStationLCD;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TestCommand;
+import org.northwestrobotics.frc2014.commands.launcher.GrabBall;
+import org.northwestrobotics.frc2014.commands.launcher.PassBall;
+import org.northwestrobotics.frc2014.commands.launcher.ShootBall;
 
 /**
  * Main robot class
@@ -53,6 +57,25 @@ public class Jagbot extends IterativeRobot
         
         // Initialize all subsystems
         CommandBase.init();
+        
+        // Add commands to SmartDashboard
+        SmartDashboard.putData("GrabBall", new GrabBall());
+        SmartDashboard.putData("PassBall (10)", new PassBall(10));
+        SmartDashboard.putData("PassBall (20)", new PassBall(10));
+        SmartDashboard.putData("PassBall (30)", new PassBall(10));
+        SmartDashboard.putData("PassBall (40)", new PassBall(10));
+        SmartDashboard.putData("PassBall (50)", new PassBall(10));
+        SmartDashboard.putData("PassBall (60)", new PassBall(10));
+        SmartDashboard.putData("ShootBall (10)", new ShootBall(10));
+        SmartDashboard.putData("ShootBall (20)", new ShootBall(20));
+        SmartDashboard.putData("ShootBall (30)", new ShootBall(30));
+        SmartDashboard.putData("ShootBall (40)", new ShootBall(40));
+        SmartDashboard.putData("ShootBall (50)", new ShootBall(50));
+        SmartDashboard.putData("ShootBall (60)", new ShootBall(60));
+        SmartDashboard.putData("ShootBall (70)", new ShootBall(70));
+        SmartDashboard.putData("ShootBall (80)", new ShootBall(80));
+        SmartDashboard.putData("ShootBall (90)", new ShootBall(90));
+        SmartDashboard.putData("ShootBall (100)", new ShootBall(100));
     }
 
     /**

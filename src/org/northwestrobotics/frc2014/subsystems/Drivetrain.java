@@ -55,8 +55,8 @@ public class Drivetrain extends Subsystem
      * @param left The left-side speed
      * @param right The right-side speed
      */
-    public void tankMove(double left, double right) {
-        driver.tankDrive(left, right);
+    public void move(double left, double right) {
+        driver.arcadeDrive(left, right);
     }
     
     /**
@@ -64,17 +64,13 @@ public class Drivetrain extends Subsystem
      */
     public void initDefaultCommand() {
         setDefaultCommand(new TeleopDrive());
-        
-        // Invert right motor
-        // (this may not be necessary now that we've fixed the polarity issue in the hardware)
-        // driver.setInvertedMotor(RobotDrive.MotorType.kRearLeft, true);    
     }
     
     /**
      * Stops the robot.
      */
     public void stop() {
-        driver.tankDrive(0, 0, true);
+        driver.arcadeDrive(0, 0, true);
     }
     
     public void updateDashboard() {

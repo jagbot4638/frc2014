@@ -28,7 +28,7 @@ import edu.wpi.first.wpilibj.Compressor;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 
 /**
- * Update pressure command
+ * Update pressure command.
  * 
  * Updates the pressure of the compressor if it is less than full.
  * 

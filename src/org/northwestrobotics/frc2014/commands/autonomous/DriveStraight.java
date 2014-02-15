@@ -59,6 +59,6 @@ public class DriveStraight extends DirectionalCommand
      * Commences command.
      */
     protected void commence() {
-        drivetrain.tankMove(getDirection(), getDirection());
+        drivetrain.move(getDirection(), getDirection());
     }
 }

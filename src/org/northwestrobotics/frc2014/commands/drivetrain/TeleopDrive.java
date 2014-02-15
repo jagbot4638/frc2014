@@ -51,7 +51,7 @@ public class TeleopDrive extends CommandBase
      * Executes command.     
      */
     protected void execute() {
-        drivetrain.tankMove(oi.getLeftStickValue(oi.getDriverGamepad()), oi.getRightStickValue(oi.getDriverGamepad()));
+        drivetrain.move(oi.getLeftStickValue(oi.getDriverGamepad()), oi.getRightStickValue(oi.getDriverGamepad()));
     }
 
     /**
