@@ -33,27 +33,54 @@ package org.northwestrobotics.frc2014;
  */
 public class RobotMap 
 {    
-    /**
-     * Button constants.
+    
+    /*
+     * Driver Gamepad switch to X
      */
-    public static class Button 
+    public static class DriverGamepad
     {
-        private Button() {}
+        public static final int PORT_NUMBER = 1;
         
-        // @todo Define missing button bindings
+        public static final int TRIGGER_AXIS = 3;
+        public static final int RIGHT_BUMPER = 6;
+        public static final int LEFT_BUMPER = 5;
+        public static final int LEFT_STICK = 2;  // Left stick Y Value
+        public static final int RIGHT_STICK = 5; // Right stick Y Value
+        public static final int X_BUTTON = 3;
+        public static final int Y_BUTTON = 4;
+        public static final int A_BUTTON = 1;
+        public static final int B_BUTTON = 2;
+        public static final int BACK_BUTTON = 7;
+        public static final int START_BUTTON = 8;
+        
+        
+    }
+    
+    /*
+     * Launcher Gamepad switch to D
+     */
+    public static class LauncherGamepad
+    {
+        public static final int PORT_NUMBER = 2;
+        
         public static final int RIGHT_TRIGGER = 8;
         public static final int LEFT_TRIGGER = 7;
         public static final int RIGHT_BUMPER = 6;
         public static final int LEFT_BUMPER = 5;
-        public static final int D_PAD = 0;
-        public static final int LEFT_STICK = 0;
-        public static final int RIGHT_STICK = 0;
+        public static final int D_PAD_X = 5;
+        public static final int D_PAD_Y = 6;
+        public static final int LEFT_STICK = 2;  // Left stick Y Value
+        public static final int RIGHT_STICK = 5; // Right stick Y Value
         public static final int X_BUTTON = 1;
         public static final int Y_BUTTON = 4;
         public static final int A_BUTTON = 2;
         public static final int B_BUTTON = 3;
         public static final int BACK_BUTTON = 9;
         public static final int START_BUTTON = 10;
+        
+        public static final int SHOOT_BALL_COMMAND = 0;
+        public static final int PASS_BALL_COMMAND = 1;
+        
     }
     
     /**
@@ -63,8 +90,8 @@ public class RobotMap
     {
         private Gamepad() {}
         
-        public static final int DRIVER_GAMEPAD = 1;
-        public static final int ACTUATOR_GAMEPAD = 2;
+        //public static final int DRIVER_GAMEPAD = 1;
+        //public static final int ACTUATOR_GAMEPAD = 2;
     }
     
     /**
@@ -84,10 +111,10 @@ public class RobotMap
         public static final int REAR_LEFT_MOTOR = 2;
         
         // Rear right motor controller
-        public static final int REAR_RIGHT_MOTOR = 3;
+        public static final int REAR_RIGHT_MOTOR = 5;
         
         // Winch motors
-        public static final int LEFT_WINCH_MOTOR = 5;
+        public static final int LEFT_WINCH_MOTOR = 3;
         public static final int RIGHT_WINCH_MOTOR = 6;
     }
     
@@ -100,7 +127,9 @@ public class RobotMap
     
         public static final int PRESSURE_SWITCH = 1;
         public static final int COMPRESSOR = 1;
-        public static final int HARD_STOP = 1;
+        public static final int HARD_STOP = 2;
+        
+        public static final int DOOR_LATCHES = 1;
     }
     
     /**
@@ -110,7 +139,7 @@ public class RobotMap
     {
         private Relay() {}
         
-        public static final int LATCH_RELAY = 1;
+        
         public static final int COMPRESSOR_RELAY = 2;
     }
     
@@ -135,6 +164,9 @@ public class RobotMap
         
         // Winch force constants
         public static final int GRAB_FORCE = 75;
+        
+        // idle power for doors to stay shut
+        public static final int IDLE_DOOR_FORCE = 15;
     }
     
     /**
@@ -142,11 +174,16 @@ public class RobotMap
      */
     public static class Time 
     {
+        
         private Time() {}
         
-        public static final int TIME_TO_SHOOT_BALL = 1000000;
-        public static final int TIME_TO_PASS_BALL = 1000000;
-        public static final int TIME_TO_GRAB_BALL = 2000000;
+        private static final int s = 1;
+        
+        public static final int LATCH_RELEASE_TIME = 1*s;
+        
+        public static final float TIME_TO_SHOOT_BALL = 0.4f * s;
+        public static final float TIME_TO_PASS_BALL = 0.4f * s;
+        public static final float TIME_TO_GRAB_BALL = 0.4f * s;
     }
     
     /**

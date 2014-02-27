@@ -25,6 +25,7 @@
 package org.northwestrobotics.frc2014.commands.launcher;
 
 import org.northwestrobotics.frc2014.RobotMap;
+import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TimedCommand;
 
 /**
@@ -34,24 +35,25 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * 
  * @author Joshua Fleming <js.fleming@outlook.com>
  */
-public class GrabBall extends TimedCommand 
+public class GrabBall extends CommandBase //extends TimedCommand 
 {    
     public GrabBall() {
-        super(RobotMap.Time.TIME_TO_GRAB_BALL);
+        //super(RobotMap.Time.TIME_TO_GRAB_BALL);
         requires(launcher);
+        setTimeout(RobotMap.Time.TIME_TO_GRAB_BALL);
     }
 
     /**
      * Closes the doors slowly.
      */
-    protected void commence() {
+    protected void initialize() {
         launcher.closeDoors(RobotMap.Force.GRAB_FORCE);
     }
 
     /**
      * Stops closing the doors.
      */
-    protected void cease() {
+    protected void end() {
         launcher.haltDoors();
     }
 }

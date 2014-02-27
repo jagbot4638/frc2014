@@ -24,6 +24,7 @@
 
 package org.northwestrobotics.frc2014.commands.autonomous;
 
+import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TimedCommand;
 
 /**
@@ -35,12 +36,11 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  * @author Joshua Fleming <josofl12@gmail.com>
  */
-public class DirectionalCommand extends TimedCommand
-{
+public class DirectionalCommand extends CommandBase {
     private final int direction;
     
     public DirectionalCommand(int direction, int time) {
-        super(time);
+        setTimeout(time);
         requires(drivetrain);
         
         // Normalize direction
@@ -50,7 +50,7 @@ public class DirectionalCommand extends TimedCommand
     /** 
      * Ends the command.
      */
-    protected final void cease() {
+    protected final void end() {
         drivetrain.stop();
     }
     

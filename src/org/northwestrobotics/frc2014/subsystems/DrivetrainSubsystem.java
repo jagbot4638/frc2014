@@ -52,11 +52,11 @@ public class DrivetrainSubsystem extends Subsystem
     /**
      * Moves the robot via a tank-drive method.
      * 
-     * @param left The left-side speed
-     * @param right The right-side speed
+     * @param moveValue The forward motion of the bot.
+     * @param rotateValue The rotational motion of the bot.
      */
-    public void move(double left, double right) {
-        driver.arcadeDrive(left, right);
+    public void move(double moveValue, double rotateValue) {
+        driver.arcadeDrive(moveValue, rotateValue);
     }
     
     /**

@@ -31,6 +31,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import org.northwestrobotics.frc2014.RobotMap;
+import org.northwestrobotics.frc2014.commands.launcher.RetractDoorLatches;
 import org.northwestrobotics.frc2014.commands.launcher.UpdatePressure;
 import org.northwestrobotics.frc2014.utils.MessageWindow;
 
@@ -43,29 +44,28 @@ public class LauncherSubsystem extends Subsystem
 {
     private final SpeedController leftDoor = new Talon(RobotMap.Motor.LEFT_WINCH_MOTOR);
     private final SpeedController rightDoor = new Talon(RobotMap.Motor.RIGHT_WINCH_MOTOR);    
-    private final Solenoid hardStop = new Solenoid(RobotMap.Pneumatic.HARD_STOP);
-    private final Compressor compressor = new Compressor(RobotMap.Pneumatic.PRESSURE_SWITCH, RobotMap.Pneumatic.COMPRESSOR);
-    private final Relay doorLatch = new Relay(RobotMap.Relay.LATCH_RELAY);
+    private final Relay hardStop = new Relay(RobotMap.Pneumatic.HARD_STOP);
+    //private final Compressor compressor = new Compressor(RobotMap.Pneumatic.PRESSURE_SWITCH, RobotMap.Pneumatic.COMPRESSOR);
+    private final Relay doorLatch = new Relay(RobotMap.Pneumatic.DOOR_LATCHES);
     
     public void initDefaultCommand() {
-        retractDoorLatches();
         extendHardStop();
         launchBall(50);
-        setDefaultCommand(new UpdatePressure());
+        new RetractDoorLatches().start();
     }
     
     /**
      * Extends hard stop.
      */
     public void extendHardStop() {
-        hardStop.set(true);
+        hardStop.set(Relay.Value.kOn);
     }
     
     /**
      * Retracts hard stop.
      */
     public void retractHardStop() {
-        hardStop.set(false);
+        hardStop.set(Relay.Value.kOff);
     }
     
     /**
@@ -76,9 +76,15 @@ public class LauncherSubsystem extends Subsystem
         doorLatch.set(Relay.Value.kOn);
     }
     
+    public void deactivateDoorLatches() {
+        doorLatch.set(Relay.Value.kOff);
+    }
+    
     private void setDoorMotors(double speed) {
-        leftDoor.set(speed);
-        rightDoor.set(-speed);
+        //speed /= 2;
+        System.out.println("Close Door Motors: " + speed);
+        leftDoor.set(-speed);
+        rightDoor.set(speed);
     }
     
     /**
@@ -90,7 +96,7 @@ public class LauncherSubsystem extends Subsystem
         // Limits speed to max value of 100 and min value of 0
         force = Math.min(force, 100);
         force = Math.max(force, 0);
-        
+                
         if(force > 0) {
             setDoorMotors(force / 100.0);
         }
@@ -116,8 +122,7 @@ public class LauncherSubsystem extends Subsystem
      * Halts doors.
      */
     public void haltDoors() {
-        leftDoor.set(0);
-        rightDoor.set(0);
+        setDoorMotors(RobotMap.Force.IDLE_DOOR_FORCE / 100.0);
     }
     
     /**
@@ -133,8 +138,9 @@ public class LauncherSubsystem extends Subsystem
      * Returns the subsystem's compressor object.
      * 
      * @return Compressor The compressor object 
-     */
+     *
     public Compressor getCompressor() {
         return compressor;
     }
+    * */
 }

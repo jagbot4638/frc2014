@@ -24,13 +24,14 @@
 
 package org.northwestrobotics.frc2014;
 
+import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
 import org.northwestrobotics.frc2014.commands.launcher.GrabBall;
 import org.northwestrobotics.frc2014.commands.launcher.PassBall;
-import org.northwestrobotics.frc2014.commands.launcher.ShootBall;
+import org.northwestrobotics.frc2014.commands.launcher.LaunchBall;
 
 /**
  * Operator interface class
@@ -42,13 +43,18 @@ import org.northwestrobotics.frc2014.commands.launcher.ShootBall;
 public class OI 
 {
     // Button objects
-    private final Joystick driverGamepad = new Joystick(RobotMap.Gamepad.DRIVER_GAMEPAD);
-    private final Joystick actuatorGamepad = new Joystick(RobotMap.Gamepad.ACTUATOR_GAMEPAD);
+    private final Joystick driverGamepad =
+            new Joystick(RobotMap.DriverGamepad.PORT_NUMBER);
+    private final Joystick launcherGamepad =
+            new Joystick(RobotMap.LauncherGamepad.PORT_NUMBER);
     
     // Actuator's buttons
-    private final Button shootButton = new JoystickButton(actuatorGamepad, RobotMap.Button.RIGHT_TRIGGER);
-    private final Button passButton = new JoystickButton(actuatorGamepad, RobotMap.Button.B_BUTTON);
-    private final Button grabButton = new JoystickButton(actuatorGamepad, RobotMap.Button.A_BUTTON);
+    private final Button shootButton = new JoystickButton(launcherGamepad,
+            RobotMap.LauncherGamepad.RIGHT_TRIGGER);
+    private final Button passButton = new JoystickButton(launcherGamepad,
+            RobotMap.LauncherGamepad.B_BUTTON);
+    private final Button grabButton = new JoystickButton(launcherGamepad,
+            RobotMap.LauncherGamepad.A_BUTTON);
     
     // Driver's buttons
     // ???
@@ -58,17 +64,42 @@ public class OI
     private final Command passCommand;
     private final Command grabCommand;
     
+    
+
+
+
+    
     /**
      * Creates the operator interface and binds controller buttons.
      */
     public OI() {
         // Actuator's bindings
-        shootButton.whenReleased(shootCommand = new ShootBall(getShootForce()));
-        passButton.whenReleased(passCommand = new PassBall(getPassForce()));
+        shootButton.whenReleased(shootCommand = new LaunchBall(RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND));
+        passButton.whenReleased(passCommand = new LaunchBall(RobotMap.LauncherGamepad.PASS_BALL_COMMAND));
         grabButton.whenReleased(grabCommand = new GrabBall());
         
         // Driver's bindings
         // ???
+    }
+    
+    public final double getMoveValue() {       
+        double value = -driverGamepad.getZ();
+        return value;
+//        if (driverGamepad.getRawButton(RobotMap.Button.RIGHT_TRIGGER))
+//            return 1;
+//        else if (driverGamepad.getRawButton(RobotMap.Button.RIGHT_BUMPER))
+//            return 0.5;
+//        else if (driverGamepad.getRawButton(RobotMap.Button.LEFT_BUMPER))
+//            return -0.5;
+//        else if (driverGamepad.getRawButton(RobotMap.Button.LEFT_TRIGGER))
+//            return -1;
+//        else return 0;
+    }
+    
+    public final double getRotateValue() {
+        if (driverGamepad.getX() != 0)
+            System.out.println("getX: " + driverGamepad.getX());
+        return driverGamepad.getX(); //driverGamepad.getRawAxis(RobotMap.Button.LEFT_STICK_X);
     }
     
     /**
@@ -76,16 +107,16 @@ public class OI
      * 
      * @return int Force of the command (0-100)
      */
-    private int getShootForce() {
+    public int getShootForce() {
        int force;
 
-       if(isDpadSouthPressed(actuatorGamepad)) {
+       if(isDpadSouthPressed(launcherGamepad)) {
            force = RobotMap.Force.SHOOT_FORCE_LOW;
-       } else if(isDpadEastPressed(actuatorGamepad)) {
+       } else if(isDpadEastPressed(launcherGamepad)) {
            force = RobotMap.Force.SHOOT_FORCE_MED;
-       } else if(isDpadNorthPressed(actuatorGamepad)) {
+       } else if(isDpadNorthPressed(launcherGamepad)) {
            force = RobotMap.Force.SHOOT_FORCE_HIGH;
-       } else if(isDpadWestPressed(actuatorGamepad)) {
+       } else if(isDpadWestPressed(launcherGamepad)) {
            force = RobotMap.Force.SHOOT_FORCE_MAX;
        } else {
            force = 0;
@@ -99,16 +130,18 @@ public class OI
      * 
      * @return int Force of the command (0-100)
      */
-    private int getPassForce() {
+    public int getPassForce() {
        int force;
 
-       if(isDpadSouthPressed(actuatorGamepad)) {
+       System.out.println("DPad X: " + getDpadXValue(launcherGamepad) + " Dpad Y: " + getDpadYValue(launcherGamepad));
+       
+       if(isDpadSouthPressed(launcherGamepad)) {
            force = RobotMap.Force.PASS_FORCE_LOW;
-       } else if(isDpadEastPressed(actuatorGamepad)) {
+       } else if(isDpadEastPressed(launcherGamepad)) {
            force = RobotMap.Force.PASS_FORCE_MED;
-       } else if(isDpadNorthPressed(actuatorGamepad)) {
+       } else if(isDpadNorthPressed(launcherGamepad)) {
            force = RobotMap.Force.PASS_FORCE_HIGH;
-       } else if(isDpadWestPressed(actuatorGamepad)) {
+       } else if(isDpadWestPressed(launcherGamepad)) {
            force = RobotMap.Force.PASS_FORCE_MAX;
        } else {
            force = 0;
@@ -145,31 +178,13 @@ public class OI
     }
     
     /**
-     * Returns the gamepad that the driver is using.
-     * 
-     * @return The gamepad
-     */
-    public Joystick getDriverGamepad() {
-        return driverGamepad;
-    }
-
-    /**
-     * Returns the gamepad that the actuator is using.
-     * 
-     * @return The gamepad
-     */
-    public Joystick getActuatorGamepad() {
-        return actuatorGamepad;
-    }
-    
-    /**
      * Gets the value of the left stick from a gamepad.
      * 
      * @param gamepad The gamepad to get the value from
      * @return Left stick value
      */
     public double getLeftStickValue(Joystick gamepad) {
-        return -gamepad.getRawAxis(RobotMap.Button.LEFT_STICK);
+        return -gamepad.getRawAxis(RobotMap.DriverGamepad.LEFT_STICK);
     }
     
     /**
@@ -179,17 +194,28 @@ public class OI
      * @return Right stick value
      */
     public double getRightStickValue(Joystick gamepad) {
-        return -gamepad.getRawAxis(RobotMap.Button.RIGHT_STICK);
+        return -gamepad.getRawAxis(RobotMap.DriverGamepad.RIGHT_STICK);
+    }
+    
+    
+    /**
+     * Gets the value of the D-pad X direction from a gamepad
+     * 
+     * @param gamepad The gamepad to get the value from
+     * @return  the value of the D-pad in the X direction
+     */
+    public double getDpadXValue(Joystick gamepad) {
+        return gamepad.getRawAxis(RobotMap.LauncherGamepad.D_PAD_X);
     }
     
     /**
-     * Gets the value of the D-Pad from a gamepad.
+     * Gets the value of the D-Pad Y direction from a gamepad.
      * 
      * @param gamepad The gamepad to get the value from
-     * @return The value of the D-Pad
+     * @return The value of the D-Pad in the Y direction
      */
-    public double getDpadValue(Joystick gamepad) {
-        return gamepad.getRawAxis(RobotMap.Button.D_PAD);
+    public double getDpadYValue(Joystick gamepad) {
+        return gamepad.getRawAxis(RobotMap.LauncherGamepad.D_PAD_Y);
     }
 
     /**
@@ -199,8 +225,8 @@ public class OI
      * @return Whether or not the button is pressed
      */
     public boolean isDpadNorthPressed(Joystick gamepad) {
-        double dpadVal = getDpadValue(gamepad);
-        return (dpadVal < 0);
+        double dpadVal = getDpadYValue(gamepad);
+        return (dpadVal == -1);
     }
     
     /**
@@ -210,8 +236,8 @@ public class OI
      * @return Whether or not the button is pressed
      */
     public boolean isDpadSouthPressed(Joystick gamepad) {
-        double dpadVal = getDpadValue(gamepad);
-        return (dpadVal < 0);
+        double dpadVal = getDpadYValue(gamepad);
+        return (dpadVal == 1);
     }
     
     /**
@@ -221,8 +247,8 @@ public class OI
      * @return Whether or not the button is pressed
      */
     public boolean isDpadEastPressed(Joystick gamepad) {
-        double dpadVal = getDpadValue(gamepad);
-        return (dpadVal > 0.5);
+        double dpadVal = getDpadXValue(gamepad);
+        return (dpadVal == 1);
     }
     
     /**
@@ -232,7 +258,7 @@ public class OI
      * @return Whether or not the button is pressed
      */
     public boolean isDpadWestPressed(Joystick gamepad) {
-        double dpadVal = getDpadValue(gamepad);
-        return (dpadVal < -0.5);
+        double dpadVal = getDpadXValue(gamepad);
+        return (dpadVal == 1);
     }
 }

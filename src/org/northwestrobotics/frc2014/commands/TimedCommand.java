@@ -50,6 +50,7 @@ public abstract class TimedCommand extends CommandBase
      */
     protected final void initialize() {
         // Commences command
+        System.out.println("Timed Command Init");
         commence();
         
         // Start stopwatch
@@ -64,7 +65,9 @@ public abstract class TimedCommand extends CommandBase
     /**
      * Executes command (overridden by child classes).
      */
-    protected final void execute() {}
+    protected final void execute() {
+        System.out.println(stopwatch.get());
+    }
     
     /**
      * Ends a command.
@@ -91,6 +94,6 @@ public abstract class TimedCommand extends CommandBase
      * @return If the command is finished
      */
     protected final boolean isFinished() {
-        return stopwatch.get() < time;
+        return stopwatch.get() >= time;
     }
 }

@@ -47,6 +47,7 @@ public class UpdatePressure extends CommandBase
      * Executes the command.
      */
     protected void execute() {
+        /*
         Compressor compressor = launcher.getCompressor();
         
         if(compressor.getPressureSwitchValue() && compressor.enabled()) {
@@ -54,6 +55,7 @@ public class UpdatePressure extends CommandBase
         } else if(!compressor.enabled() && !compressor.getPressureSwitchValue()) {
             compressor.start();
         }
+        * */
     }
 
     /**

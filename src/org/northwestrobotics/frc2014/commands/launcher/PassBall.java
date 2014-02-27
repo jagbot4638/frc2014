@@ -25,6 +25,7 @@
 package org.northwestrobotics.frc2014.commands.launcher;
 
 import org.northwestrobotics.frc2014.RobotMap;
+import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TimedCommand;
 
 /**
@@ -35,7 +36,7 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * @author Joshua Fleming <js.fleming@outlook.com>
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class PassBall extends TimedCommand
+public class PassBall extends CommandBase
 {   
     private final int force;
     
@@ -45,7 +46,7 @@ public class PassBall extends TimedCommand
      * @param force The force to push the ball with (1-100)
      */
     public PassBall(int force) {
-        super(RobotMap.Time.TIME_TO_PASS_BALL);
+        setTimeout(RobotMap.Time.TIME_TO_PASS_BALL);
         requires(launcher);
         this.force = force;
     }
@@ -53,7 +54,7 @@ public class PassBall extends TimedCommand
     /**
      * Releases the hard stop and launches the ball.
      */
-    protected void commence() {
+    protected void initialize() {
         launcher.retractHardStop();
         launcher.launchBall(force);
     }
@@ -61,7 +62,7 @@ public class PassBall extends TimedCommand
     /** 
      * Opens the doors and activates the hard stop.
      */
-    protected void cease() {
+    protected void end() {
        launcher.openDoors();
        launcher.extendHardStop();
     }

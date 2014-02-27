@@ -69,5 +69,23 @@ public abstract class CommandBase extends Command
      */
     public CommandBase() {
         super();
-    }       
+    } 
+
+    protected void initialize() {
+    }
+
+    protected void execute() {
+    }
+
+    protected boolean isFinished() {
+        return isTimedOut();
+    }
+
+    protected void end() {
+    }
+
+    protected void interrupted() {
+    }
+    
+    
 }

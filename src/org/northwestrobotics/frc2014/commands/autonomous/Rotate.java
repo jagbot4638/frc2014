@@ -57,7 +57,7 @@ public class Rotate extends DirectionalCommand
     /**
      * Commences the command.
      */
-    protected void commence() {
+    protected void initialize() {
         drivetrain.move(getDirection(), -getDirection());
     }
 }

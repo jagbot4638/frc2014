@@ -25,6 +25,7 @@
 package org.northwestrobotics.frc2014.commands.launcher;
 
 import org.northwestrobotics.frc2014.RobotMap;
+import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TimedCommand;
 
 /**
@@ -35,34 +36,41 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * @author Joshua Fleming <js.fleming@outlook.com>
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class ShootBall extends TimedCommand
-{   
-    private final int force;
+public class LaunchBall extends CommandBase {   
+    private final int commandType;
     
     /**
      * Pushes the ball out of the robot with a given force.
      * 
      * @param force The force to push the ball with (1-100)
      */
-    public ShootBall(int force) {
-        super(RobotMap.Time.TIME_TO_SHOOT_BALL);
+    public LaunchBall(int commandType) {
+        setTimeout(RobotMap.Time.TIME_TO_SHOOT_BALL);
         requires(launcher);
-        this.force = force;
+        this.commandType = commandType;
     }
 
     /**
      * Releases the hard stop and launches the ball.
      */
-    protected void commence() {
+    protected void initialize() {
         launcher.retractHardStop();
-        launcher.launchBall(force);
+        if (commandType == RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND){
+            launcher.launchBall(oi.getShootForce());
+        }
+        else if (commandType == RobotMap.LauncherGamepad.PASS_BALL_COMMAND){
+            launcher.launchBall(oi.getPassForce());
+        }
+        else {
+            System.out.println("COMMAND TYPE NOT RECOGNIZED: " + commandType);
+        }
         
     }
 
     /** 
      * Opens the doors and activates the hard stop.
      */
-    protected void cease() {
+    protected void end() {
        launcher.openDoors();
        launcher.extendHardStop();
     }

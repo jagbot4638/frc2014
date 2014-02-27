@@ -27,53 +27,16 @@ package org.northwestrobotics.frc2014.commands.drivetrain;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 
 /**
- * Tele-op drive command
- * 
  * Enables and managed tele-op drive mode.
  * 
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class TeleopDrive extends CommandBase 
-{
-    /**
-     * Initializes tele-op drive.
-     */
+public class TeleopDrive extends CommandBase {
     public TeleopDrive() {
         requires(drivetrain);
     }
 
-    /**
-     * Initializes command.
-     */
-    protected void initialize() {}
-
-    /**
-     * Executes command.     
-     */
     protected void execute() {
-        drivetrain.move(oi.getLeftStickValue(oi.getDriverGamepad()), oi.getRightStickValue(oi.getDriverGamepad()));
-    }
-
-    /**
-     * Checks if the command is finished
-     * 
-     * @return If the command is finished
-     */
-    protected boolean isFinished() {
-        return false;
-    }
-
-    /**
-     * Called after the command ends.
-     */
-    protected void end() {
-        drivetrain.stop();
-    }
-
-    /**
-     * Called if the command is interrupted by another command.
-     */
-    protected void interrupted() {
-        end();
+        drivetrain.move(oi.getMoveValue(), oi.getRotateValue());
     }
 }
