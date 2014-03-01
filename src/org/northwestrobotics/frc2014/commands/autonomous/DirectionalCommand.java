@@ -39,7 +39,7 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
 public class DirectionalCommand extends CommandBase {
     private final int direction;
     
-    public DirectionalCommand(int direction, int time) {
+    public DirectionalCommand(int direction, double time) {
         setTimeout(time);
         requires(drivetrain);
         

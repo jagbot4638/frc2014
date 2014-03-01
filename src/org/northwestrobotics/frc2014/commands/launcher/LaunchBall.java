@@ -24,8 +24,10 @@
 
 package org.northwestrobotics.frc2014.commands.launcher;
 
+import edu.wpi.first.wpilibj.Timer;
 import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.CommandBase;
+import org.northwestrobotics.frc2014.commands.TimeElapsedCommand;
 import org.northwestrobotics.frc2014.commands.TimedCommand;
 
 /**
@@ -36,8 +38,9 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * @author Joshua Fleming <js.fleming@outlook.com>
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class LaunchBall extends CommandBase {   
+public class LaunchBall extends TimeElapsedCommand {   
     private final int commandType;
+    private int force;
     
     /**
      * Pushes the ball out of the robot with a given force.
@@ -45,7 +48,7 @@ public class LaunchBall extends CommandBase {
      * @param force The force to push the ball with (1-100)
      */
     public LaunchBall(int commandType) {
-        setTimeout(RobotMap.Time.TIME_TO_SHOOT_BALL);
+        setTimeLimit(RobotMap.Time.TIME_TO_SHOOT_BALL);
         requires(launcher);
         this.commandType = commandType;
     }
@@ -54,12 +57,13 @@ public class LaunchBall extends CommandBase {
      * Releases the hard stop and launches the ball.
      */
     protected void initialize() {
+        super.initialize();
         launcher.retractHardStop();
         if (commandType == RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND){
-            launcher.launchBall(oi.getShootForce());
+            launcher.launchBall(force = oi.getShootForce());
         }
         else if (commandType == RobotMap.LauncherGamepad.PASS_BALL_COMMAND){
-            launcher.launchBall(oi.getPassForce());
+            launcher.launchBall(force = oi.getPassForce());
         }
         else {
             System.out.println("COMMAND TYPE NOT RECOGNIZED: " + commandType);
@@ -67,11 +71,19 @@ public class LaunchBall extends CommandBase {
         
     }
 
+    protected void execute(double timeElapsed) {
+        int deltaForce = RobotMap.Force.IDLE_DOOR_FORCE - force;
+        launcher.launchBall(force + (getTotalTimeElapsed()/getTimeLimit()) * deltaForce);
+    }
+    
+    
+    
     /** 
      * Opens the doors and activates the hard stop.
      */
     protected void end() {
-       launcher.openDoors();
+       super.end(); 
+       launcher.haltDoors();
        launcher.extendHardStop();
     }
 }

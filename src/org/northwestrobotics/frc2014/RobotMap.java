@@ -163,10 +163,14 @@ public class RobotMap
         public static final int PASS_FORCE_MAX = 60;
         
         // Winch force constants
-        public static final int GRAB_FORCE = 75;
+        public static final int GRAB_FORCE = 65;
         
         // idle power for doors to stay shut
         public static final int IDLE_DOOR_FORCE = 15;
+        
+        //motor power for minute turns
+        public static final double MINUTE_TURN_FORCE = 0.1;
+        
     }
     
     /**
@@ -183,7 +187,7 @@ public class RobotMap
         
         public static final float TIME_TO_SHOOT_BALL = 0.4f * s;
         public static final float TIME_TO_PASS_BALL = 0.4f * s;
-        public static final float TIME_TO_GRAB_BALL = 0.4f * s;
+        public static final float TIME_TO_GRAB_BALL = 0.35f * s;
     }
     
     /**
@@ -191,13 +195,16 @@ public class RobotMap
      */
     public static class Autonomous 
     {
+        public static final String MODE_KEY = 
+                "Autonomous mode (0 = stand still, 1 = drive forward, 2 = turn "
+                + "left and score, 3 = turn right and score) ";
         private Autonomous() {}
         
         // Time constants (in msec)
-        public static final int TIME_TO_TURN = 1000000;
-        public static final int TIME_TO_DRIVE_STRAIGHT = 1000000;
-        public static final int TIME_TO_REACH_WALL = 1500000;
-        public static final int TIME_TO_REACH_GOAL = 1000000;
+        public static final double TIME_TO_TURN = 1;
+        public static final double TIME_TO_DRIVE_STRAIGHT = 1;
+        public static final double TIME_TO_REACH_WALL = 1.5;
+        public static final double TIME_TO_REACH_GOAL = 1;
     }
 
     /**

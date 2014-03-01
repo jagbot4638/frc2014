@@ -42,7 +42,7 @@ public class DriveStraight extends DirectionalCommand
      * @param direction The direction to move in
      * @param time The amount of time to move
      */
-    public DriveStraight(int direction, int time) {
+    public DriveStraight(int direction, double time) {
         super(direction, time);
     }
     

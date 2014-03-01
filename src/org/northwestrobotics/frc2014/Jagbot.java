@@ -27,8 +27,13 @@ package org.northwestrobotics.frc2014;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TestCommand;
+import org.northwestrobotics.frc2014.commands.autonomous.DriveStraight;
+import org.northwestrobotics.frc2014.commands.autonomous.Rotate;
+import org.northwestrobotics.frc2014.commands.autonomous.StandStill;
+import org.northwestrobotics.frc2014.commands.autonomous.TurnAndScore;
 import org.northwestrobotics.frc2014.utils.MessageWindow;
 
 /**
@@ -49,12 +54,32 @@ public class Jagbot extends IterativeRobot
     public void robotInit() {
         // Initialize all subsystems
         CommandBase.init();
+        
+        SmartDashboard.putNumber(RobotMap.Autonomous.MODE_KEY, 0);
+        
     }
 
     /**
      * Initializes autonomous mode code.
      */
-    public void autonomousInit() {}
+    public void autonomousInit() {
+        int mode = (int)SmartDashboard.getNumber(RobotMap.Autonomous.MODE_KEY);
+        switch (mode) {
+            case 0:
+                new StandStill().start();
+                break;
+            case 1:
+                new DriveStraight(1).start();
+                break;
+            
+            case 2:
+                new TurnAndScore(-1).start();
+                break;
+            case 3:
+                new TurnAndScore(1).start();
+                break;
+        }
+    }
 
     /**
      * Called periodically during autonomous mode.

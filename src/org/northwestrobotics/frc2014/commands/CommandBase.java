@@ -54,6 +54,7 @@ public abstract class CommandBase extends Command
         launcher = new LauncherSubsystem();
         oi = new OI();
     }
+    
 
     /**
      * Initializes a named command.
@@ -71,6 +72,8 @@ public abstract class CommandBase extends Command
         super();
     } 
 
+    
+    
     protected void initialize() {
     }
 

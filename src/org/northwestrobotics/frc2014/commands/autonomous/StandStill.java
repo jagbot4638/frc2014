@@ -33,4 +33,4 @@ import org.northwestrobotics.frc2014.commands.CommandBase;
  * 
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public abstract class StandStill extends CommandBase {}
+public class StandStill extends CommandBase {}

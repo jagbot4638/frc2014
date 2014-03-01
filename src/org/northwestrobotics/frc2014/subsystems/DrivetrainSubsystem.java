@@ -50,13 +50,24 @@ public class DrivetrainSubsystem extends Subsystem
     private final RobotDrive driver = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
     
     /**
-     * Moves the robot via a tank-drive method.
+     * Moves the robot via an arcade-drive method.
      * 
      * @param moveValue The forward motion of the bot.
      * @param rotateValue The rotational motion of the bot.
      */
     public void move(double moveValue, double rotateValue) {
         driver.arcadeDrive(moveValue, rotateValue);
+    }
+    
+    /**
+     * Moves the robot via a tank-drive method.
+     * 
+     * @param leftValue
+     * @param rightValue 
+     */
+    public void tankMove(double leftValue, double rightValue){
+        System.out.println("Tank Drive: L: " + leftValue + " R: " + rightValue);
+        driver.tankDrive(leftValue, rightValue);
     }
     
     /**

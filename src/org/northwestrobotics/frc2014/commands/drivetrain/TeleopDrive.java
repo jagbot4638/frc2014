@@ -24,6 +24,7 @@
 
 package org.northwestrobotics.frc2014.commands.drivetrain;
 
+import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 
 /**
@@ -32,11 +33,40 @@ import org.northwestrobotics.frc2014.commands.CommandBase;
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
 public class TeleopDrive extends CommandBase {
+    
+    private boolean useRightStickMinuteTurnMethod = true;
+    
     public TeleopDrive() {
         requires(drivetrain);
     }
 
     protected void execute() {
-        drivetrain.move(oi.getMoveValue(), oi.getRotateValue());
+        double moveValue = oi.getMoveValue();
+        double rotateValue = oi.getRotateValue();
+        
+        drivetrain.move(moveValue, rotateValue);
+        
+        //minute turns with right stick only called if 
+        //main drive input is 0
+        if (Math.abs(moveValue) < 0.01 && Math.abs(rotateValue) < 0.01){
+            System.out.println("Can Turn Minutely...");
+            if (useRightStickMinuteTurnMethod){
+                double rightStickValue = oi.getDriverRightStickValue() / 2;
+                drivetrain.tankMove(-rightStickValue, rightStickValue);
+            }
+            else {
+                if (oi.isMinuteLeftTurnButtonDown()){
+                    drivetrain.tankMove(-RobotMap.Force.MINUTE_TURN_FORCE, 
+                            RobotMap.Force.MINUTE_TURN_FORCE);
+                }
+                else if (oi.isMinuteRightTurnButtonDown()){
+                    drivetrain.tankMove(RobotMap.Force.MINUTE_TURN_FORCE, 
+                            -RobotMap.Force.MINUTE_TURN_FORCE);
+                }
+                else {
+                    drivetrain.tankMove(0, 0);
+                }
+            }
+        }
     }
 }

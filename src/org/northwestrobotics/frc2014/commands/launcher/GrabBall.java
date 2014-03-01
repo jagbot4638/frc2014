@@ -26,6 +26,7 @@ package org.northwestrobotics.frc2014.commands.launcher;
 
 import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.CommandBase;
+import org.northwestrobotics.frc2014.commands.TimeElapsedCommand;
 import org.northwestrobotics.frc2014.commands.TimedCommand;
 
 /**
@@ -35,25 +36,37 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * 
  * @author Joshua Fleming <js.fleming@outlook.com>
  */
-public class GrabBall extends CommandBase //extends TimedCommand 
+public class GrabBall extends TimeElapsedCommand //extends TimedCommand 
 {    
     public GrabBall() {
         //super(RobotMap.Time.TIME_TO_GRAB_BALL);
         requires(launcher);
-        setTimeout(RobotMap.Time.TIME_TO_GRAB_BALL);
+        setTimeLimit(RobotMap.Time.TIME_TO_GRAB_BALL);
     }
 
     /**
      * Closes the doors slowly.
      */
     protected void initialize() {
+        super.initialize();
         launcher.closeDoors(RobotMap.Force.GRAB_FORCE);
     }
 
+    protected void execute(double timeElapsed) {
+        double deltaForce = RobotMap.Force.IDLE_DOOR_FORCE - RobotMap.Force.GRAB_FORCE;
+        double force = RobotMap.Force.GRAB_FORCE + (getTotalTimeElapsed()/getTimeLimit()) * deltaForce;
+        launcher.closeDoors(force);
+        System.out.println("TAPERING FORCE: " + force);
+        
+    }
+    
     /**
      * Stops closing the doors.
      */
     protected void end() {
+        super.end();
         launcher.haltDoors();
     }
+
+    
 }

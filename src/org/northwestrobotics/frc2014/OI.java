@@ -29,6 +29,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
+import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.launcher.GrabBall;
 import org.northwestrobotics.frc2014.commands.launcher.PassBall;
 import org.northwestrobotics.frc2014.commands.launcher.LaunchBall;
@@ -55,9 +56,15 @@ public class OI
             RobotMap.LauncherGamepad.B_BUTTON);
     private final Button grabButton = new JoystickButton(launcherGamepad,
             RobotMap.LauncherGamepad.A_BUTTON);
+    private final Button openDoorsButton = new JoystickButton(
+            launcherGamepad, RobotMap.LauncherGamepad.Y_BUTTON);
     
     // Driver's buttons
-    // ???
+    private final Button minuteLeftTurnButton = new JoystickButton(
+            driverGamepad, RobotMap.DriverGamepad.X_BUTTON);
+    private final Button minuteRightTurnButton = new JoystickButton(
+            driverGamepad, RobotMap.DriverGamepad.B_BUTTON);
+    
     
     // Commands
     private final Command shootCommand;
@@ -77,6 +84,19 @@ public class OI
         shootButton.whenReleased(shootCommand = new LaunchBall(RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND));
         passButton.whenReleased(passCommand = new LaunchBall(RobotMap.LauncherGamepad.PASS_BALL_COMMAND));
         grabButton.whenReleased(grabCommand = new GrabBall());
+        openDoorsButton.whenReleased(
+                new CommandBase() {
+                    {
+                        requires(launcher);
+                    }
+                    protected void initialize() {
+                        launcher.openDoors();
+                    }
+                    
+                    protected boolean isFinished() {
+                        return true;
+                    }
+                });
         
         // Driver's bindings
         // ???
@@ -101,6 +121,26 @@ public class OI
             System.out.println("getX: " + driverGamepad.getX());
         return driverGamepad.getX(); //driverGamepad.getRawAxis(RobotMap.Button.LEFT_STICK_X);
     }
+    
+    /**
+     * Test if the minute turn left button is pressed
+     * 
+     * @return value of minute left turn button
+     */
+    public boolean isMinuteLeftTurnButtonDown(){
+        return minuteLeftTurnButton.get();
+    }
+    
+    /**
+     * Test if the minute right turn button is pressed
+     * 
+     * @return value of minute right turn value
+     */
+    public boolean isMinuteRightTurnButtonDown(){
+        return minuteRightTurnButton.get();
+    }
+    
+    
     
     /**
      * Returns the force of the pressed shoot speed modifier.
@@ -178,25 +218,41 @@ public class OI
     }
     
     /**
-     * Gets the value of the left stick from a gamepad.
+     * Gets the value of the left stick from the diverGamepad.
      * 
-     * @param gamepad The gamepad to get the value from
      * @return Left stick value
      */
-    public double getLeftStickValue(Joystick gamepad) {
-        return -gamepad.getRawAxis(RobotMap.DriverGamepad.LEFT_STICK);
+    public double getDriverLeftStickValue() {
+        return -driverGamepad.getRawAxis(RobotMap.DriverGamepad.LEFT_STICK);
     }
     
     /**
-     * Gets the value of the right stick from a gamepad.
+     * Gets the value of the right stick from the driverGamepad.
      * 
-     * @param gamepad The gamepad to get the value from
      * @return Right stick value
      */
-    public double getRightStickValue(Joystick gamepad) {
-        return -gamepad.getRawAxis(RobotMap.DriverGamepad.RIGHT_STICK);
+    public double getDriverRightStickValue() {
+        return -driverGamepad.getRawAxis(RobotMap.DriverGamepad.RIGHT_STICK);
     }
     
+    
+    /**
+     * Gets the value of the left stick from the launcherGamepad.
+     * 
+     * @return Left stick value
+     */
+    public double getLauncherLeftStickValue() {
+        return -launcherGamepad.getRawAxis(RobotMap.DriverGamepad.LEFT_STICK);
+    }
+    
+    /**
+     * Gets the value of the right stick from the launcherGamepad.
+     * 
+     * @return Right stick value
+     */
+    public double getLauncherRightStickValue() {
+        return -launcherGamepad.getRawAxis(RobotMap.DriverGamepad.RIGHT_STICK);
+    }
     
     /**
      * Gets the value of the D-pad X direction from a gamepad
