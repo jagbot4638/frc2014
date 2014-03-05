@@ -53,6 +53,8 @@ public class RobotMap
         public static final int BACK_BUTTON = 7;
         public static final int START_BUTTON = 8;
         
+        //adjustments are more than likely necessary
+        public static final double MAX_TRIGGER_DELTA = 0.05;
         
     }
     
@@ -171,6 +173,10 @@ public class RobotMap
         //motor power for minute turns
         public static final double MINUTE_TURN_FORCE = 0.1;
         
+        //variable to potentially limit the robots max speed
+        //0.0 - 1.0
+        public static final double MAX_DRIVETRAIN_VALUE = 1.0;
+        
     }
     
     /**
@@ -185,9 +191,9 @@ public class RobotMap
         
         public static final int LATCH_RELEASE_TIME = 1*s;
         
-        public static final float TIME_TO_SHOOT_BALL = 0.4f * s;
+        public static final float TIME_TO_SHOOT_BALL = 2.0f * s;
         public static final float TIME_TO_PASS_BALL = 0.4f * s;
-        public static final float TIME_TO_GRAB_BALL = 0.35f * s;
+        public static final float TIME_TO_GRAB_BALL = 1.35f * s;
     }
     
     /**

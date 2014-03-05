@@ -49,7 +49,7 @@ public class TeleopDrive extends CommandBase {
         //minute turns with right stick only called if 
         //main drive input is 0
         if (Math.abs(moveValue) < 0.01 && Math.abs(rotateValue) < 0.01){
-            System.out.println("Can Turn Minutely...");
+            //System.out.println("Can Turn Minutely...");
             if (useRightStickMinuteTurnMethod){
                 double rightStickValue = oi.getDriverRightStickValue() / 2;
                 drivetrain.tankMove(-rightStickValue, rightStickValue);

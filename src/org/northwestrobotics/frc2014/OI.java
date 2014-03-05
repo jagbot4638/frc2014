@@ -72,8 +72,8 @@ public class OI
     private final Command grabCommand;
     
     
-
-
+    private double previousDriveTrainMoveValue = 0;
+    
 
     
     /**
@@ -102,24 +102,39 @@ public class OI
         // ???
     }
     
-    public final double getMoveValue() {       
+    public final double getMoveValue() {          
+        //just return value as it is now to use the
+        //old way of getting trigger input
         double value = -driverGamepad.getZ();
-        return value;
-//        if (driverGamepad.getRawButton(RobotMap.Button.RIGHT_TRIGGER))
-//            return 1;
-//        else if (driverGamepad.getRawButton(RobotMap.Button.RIGHT_BUMPER))
-//            return 0.5;
-//        else if (driverGamepad.getRawButton(RobotMap.Button.LEFT_BUMPER))
-//            return -0.5;
-//        else if (driverGamepad.getRawButton(RobotMap.Button.LEFT_TRIGGER))
-//            return -1;
-//        else return 0;
+        
+        //limit the maximum power that the drivetrain that can output
+        value *= RobotMap.Force.MAX_DRIVETRAIN_VALUE;
+        
+        double triggerDelta = value - previousDriveTrainMoveValue;
+        if (triggerDelta > RobotMap.DriverGamepad.MAX_TRIGGER_DELTA){
+            value = previousDriveTrainMoveValue + RobotMap.DriverGamepad.MAX_TRIGGER_DELTA;
+            System.out.println("Limiting Acceleration...");
+        }
+        else if (triggerDelta < -RobotMap.DriverGamepad.MAX_TRIGGER_DELTA){
+            value = previousDriveTrainMoveValue - RobotMap.DriverGamepad.MAX_TRIGGER_DELTA;
+            System.out.println("Limiting Acceleration...");
+        }
+        
+        //ensure that the value is within the acceptable range
+        //-MAX_DRIVETRAIN_VALUE < value < MAX_DRIVETRAIN_VALUE
+        value = Math.max(value, -RobotMap.Force.MAX_DRIVETRAIN_VALUE);
+        value = Math.min(value, RobotMap.Force.MAX_DRIVETRAIN_VALUE);
+        
+        
+        System.out.println("Drivetrain Move Value: " + value + 
+                " (FORCING DRIVETRAIN TO 0 FOR TESTING)");
+        
+        previousDriveTrainMoveValue = value;
+        return 0; //returning 0 for safety; check output before returning value
     }
     
     public final double getRotateValue() {
-        if (driverGamepad.getX() != 0)
-            System.out.println("getX: " + driverGamepad.getX());
-        return driverGamepad.getX(); //driverGamepad.getRawAxis(RobotMap.Button.LEFT_STICK_X);
+        return -driverGamepad.getX();
     }
     
     /**
