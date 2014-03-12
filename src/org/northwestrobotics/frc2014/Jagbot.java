@@ -46,6 +46,14 @@ import org.northwestrobotics.frc2014.utils.MessageWindow;
  */
 public class Jagbot extends IterativeRobot 
 {   
+    private static boolean isAutonomous;
+    
+    static boolean isInAutonomousMode(){
+        return isAutonomous;
+    }
+        
+    
+    
     private Command testCommand;
     
     /**
@@ -57,25 +65,32 @@ public class Jagbot extends IterativeRobot
         
         SmartDashboard.putNumber(RobotMap.Autonomous.MODE_KEY, 0);
         
+        //temperary method to test door closing speeds
+        SmartDashboard.putNumber(RobotMap.Force.DOOR_FORCE_KEY, 50);
     }
 
     /**
      * Initializes autonomous mode code.
      */
     public void autonomousInit() {
+        Jagbot.isAutonomous = true;
         int mode = (int)SmartDashboard.getNumber(RobotMap.Autonomous.MODE_KEY);
         switch (mode) {
             case 0:
+                System.out.println("Standing still");
                 new StandStill().start();
                 break;
             case 1:
+                System.out.println("Driving forward");
                 new DriveStraight(1).start();
                 break;
             
             case 2:
+                System.out.println("Turning left and shooting to score");
                 new TurnAndScore(-1).start();
                 break;
             case 3:
+                System.out.println("Turning right and shooting to score");
                 new TurnAndScore(1).start();
                 break;
         }
@@ -93,9 +108,10 @@ public class Jagbot extends IterativeRobot
      */
     public void teleopInit() {
         // Initalize test command
+        Jagbot.isAutonomous = false;
         MessageWindow.write(1, "Robot init");
-        testCommand = new TestCommand();
-        testCommand.start();
+        //testCommand = new TestCommand();
+        //testCommand.start();
     }
 
     /**

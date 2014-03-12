@@ -38,17 +38,15 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * @author Joshua Fleming <js.fleming@outlook.com>
  * @author Saagar Ahluwalia <saagar_ahluwalia@outlook.com>
  */
-public class LaunchBall extends TimeElapsedCommand {   
+public class LaunchBall extends CommandBase {   
     private final int commandType;
-    private int force;
     
     /**
      * Pushes the ball out of the robot with a given force.
      * 
-     * @param force The force to push the ball with (1-100)
+     * @param commandType is the ball being pushed out with intent to shoot or pass.
      */
     public LaunchBall(int commandType) {
-        setTimeLimit(RobotMap.Time.TIME_TO_SHOOT_BALL);
         requires(launcher);
         this.commandType = commandType;
     }
@@ -59,31 +57,21 @@ public class LaunchBall extends TimeElapsedCommand {
     protected void initialize() {
         super.initialize();
         launcher.retractHardStop();
-        if (commandType == RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND){
-            launcher.launchBall(force = oi.getShootForce());
-        }
-        else if (commandType == RobotMap.LauncherGamepad.PASS_BALL_COMMAND){
-            launcher.launchBall(force = oi.getPassForce());
-        }
-        else {
-            System.out.println("COMMAND TYPE NOT RECOGNIZED: " + commandType);
+        switch (commandType) {
+            case RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND:
+                launcher.launchBall(oi.getShootForce());
+                break;
+            case RobotMap.LauncherGamepad.PASS_BALL_COMMAND:
+                launcher.launchBall(oi.getPassForce());
+                break;
+            default:
+                System.out.println("COMMAND TYPE NOT RECOGNIZED: " + commandType);
         }
         
     }
+    
+    protected boolean isFinished(){
+        return true;
+    }
 
-    protected void execute(double timeElapsed) {
-        int deltaForce = RobotMap.Force.IDLE_DOOR_FORCE - force;
-        launcher.launchBall(force + (getTotalTimeElapsed()/getTimeLimit()) * deltaForce);
-    }
-    
-    
-    
-    /** 
-     * Opens the doors and activates the hard stop.
-     */
-    protected void end() {
-       super.end(); 
-       launcher.haltDoors();
-       launcher.extendHardStop();
-    }
 }

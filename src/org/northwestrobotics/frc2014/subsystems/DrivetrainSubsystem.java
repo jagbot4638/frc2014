@@ -66,7 +66,7 @@ public class DrivetrainSubsystem extends Subsystem
      * @param rightValue 
      */
     public void tankMove(double leftValue, double rightValue){
-        System.out.println("Tank Drive: L: " + leftValue + " R: " + rightValue);
+        //System.out.println("Tank Drive: L: " + leftValue + " R: " + rightValue);
         driver.tankDrive(leftValue, rightValue);
     }
     

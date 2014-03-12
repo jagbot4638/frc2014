@@ -45,7 +45,8 @@ public class RobotMap
         public static final int RIGHT_BUMPER = 6;
         public static final int LEFT_BUMPER = 5;
         public static final int LEFT_STICK = 2;  // Left stick Y Value
-        public static final int RIGHT_STICK = 5; // Right stick Y Value
+        public static final int RIGHT_STICK_Y = 5; // Right stick Y Value
+        public static final int RIGHT_STICK_X = 4;
         public static final int X_BUTTON = 3;
         public static final int Y_BUTTON = 4;
         public static final int A_BUTTON = 1;
@@ -54,7 +55,9 @@ public class RobotMap
         public static final int START_BUTTON = 8;
         
         //adjustments are more than likely necessary
-        public static final double MAX_TRIGGER_DELTA = 0.05;
+        public static final double MAX_SPEED_DELTA = 0.01;
+                
+        public static final double MAX_TURN_VALUE = 0.75;
         
     }
     
@@ -146,16 +149,34 @@ public class RobotMap
     }
     
     /**
+     * Analog Input Constants
+     */
+    public static class AnalogInput
+    {
+        private AnalogInput() {}
+        
+        public static final int ANALOG_BREAKOUT_MODULE = 1;
+        
+        public static final int BALL_SENSOR_CHANNEL = 1;
+        
+        //if the sensor voltage is less than this, the ball is in the robot
+        public static final int BALL_IN_ROBOT_CUTOFF = 256;
+    }
+    
+    /**
      * Force constants.
      */
     public static class Force 
     {
         private Force() {}
         
+        public static final String DOOR_FORCE_KEY = "Door Force (0-100): ";
+        public static final boolean GET_FORCE_FROM_SMART_DASHBOARD = true;
+        
         // Shoot force constants
-        public static final int SHOOT_FORCE_LOW = 25;
-        public static final int SHOOT_FORCE_MED = 50;
-        public static final int SHOOT_FORCE_HIGH = 75;
+        public static final int SHOOT_FORCE_LOW = 70;
+        public static final int SHOOT_FORCE_MED = 80;
+        public static final int SHOOT_FORCE_HIGH = 90;
         public static final int SHOOT_FORCE_MAX = 100;
         
         // Pass force constants
@@ -165,17 +186,20 @@ public class RobotMap
         public static final int PASS_FORCE_MAX = 60;
         
         // Winch force constants
-        public static final int GRAB_FORCE = 65;
+        public static final int GRAB_FORCE = 100;
         
         // idle power for doors to stay shut
         public static final int IDLE_DOOR_FORCE = 15;
         
         //motor power for minute turns
-        public static final double MINUTE_TURN_FORCE = 0.1;
+        public static final double MINUTE_TURN_FORCE = 0.05;
         
         //variable to potentially limit the robots max speed
         //0.0 - 1.0
-        public static final double MAX_DRIVETRAIN_VALUE = 1.0;
+        public static final double MAX_DRIVETRAIN_VALUE = 0.75;
+        
+        public static final double MIN_DRIVETRAIN_VALUE = 0.25;
+
         
     }
     

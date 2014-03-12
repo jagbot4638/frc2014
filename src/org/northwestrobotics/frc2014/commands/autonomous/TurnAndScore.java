@@ -25,7 +25,10 @@
 package org.northwestrobotics.frc2014.commands.autonomous;
 
 import org.northwestrobotics.frc2014.RobotMap;
+import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.CommandGroupBase;
+import org.northwestrobotics.frc2014.commands.launcher.HaltDoors;
+import org.northwestrobotics.frc2014.commands.launcher.LaunchBall;
 
 /**
  * Turn and score command
@@ -47,6 +50,9 @@ public class TurnAndScore extends CommandGroupBase
         addSequential(new DriveStraight(RobotMap.Direction.FORWARD, RobotMap.Autonomous.TIME_TO_REACH_WALL));
         addSequential(new Rotate(-direction));
         addSequential(new DriveStraight(RobotMap.Direction.FORWARD, RobotMap.Autonomous.TIME_TO_REACH_GOAL));
-        addSequential(getOI().getShootCommand());
+        addSequential(new LaunchBall(RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND));
+        addSequential(
+                new CommandBase() {{setTimeout(RobotMap.Time.TIME_TO_SHOOT_BALL);}});
+        addSequential(new HaltDoors());
     }
 }

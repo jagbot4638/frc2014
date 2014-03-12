@@ -24,13 +24,16 @@
 
 package org.northwestrobotics.frc2014;
 
+import edu.wpi.first.wpilibj.AnalogChannel;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.launcher.GrabBall;
+import org.northwestrobotics.frc2014.commands.launcher.HaltDoors;
 import org.northwestrobotics.frc2014.commands.launcher.PassBall;
 import org.northwestrobotics.frc2014.commands.launcher.LaunchBall;
 
@@ -65,6 +68,9 @@ public class OI
     private final Button minuteRightTurnButton = new JoystickButton(
             driverGamepad, RobotMap.DriverGamepad.B_BUTTON);
     
+    private final AnalogChannel ballSensor = new AnalogChannel(
+            RobotMap.AnalogInput.ANALOG_BREAKOUT_MODULE, 
+            RobotMap.AnalogInput.BALL_SENSOR_CHANNEL);
     
     // Commands
     private final Command shootCommand;
@@ -72,7 +78,8 @@ public class OI
     private final Command grabCommand;
     
     
-    private double previousDriveTrainMoveValue = 0;
+    private double previousMoveValue = 0;
+    private final Command haltDoorsCommand;
     
 
     
@@ -81,9 +88,16 @@ public class OI
      */
     public OI() {
         // Actuator's bindings
-        shootButton.whenReleased(shootCommand = new LaunchBall(RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND));
-        passButton.whenReleased(passCommand = new LaunchBall(RobotMap.LauncherGamepad.PASS_BALL_COMMAND));
-        grabButton.whenReleased(grabCommand = new GrabBall());
+        shootButton.whenPressed(shootCommand = new LaunchBall(RobotMap.LauncherGamepad.SHOOT_BALL_COMMAND));
+        shootButton.whenReleased(haltDoorsCommand = new HaltDoors());
+        
+        passButton.whenPressed(passCommand = new LaunchBall(RobotMap.LauncherGamepad.PASS_BALL_COMMAND));
+        passButton.whenReleased(haltDoorsCommand);
+        
+        grabButton.whenPressed(grabCommand = new GrabBall());
+        grabButton.whenReleased(haltDoorsCommand);
+        
+        
         openDoorsButton.whenReleased(
                 new CommandBase() {
                     {
@@ -110,14 +124,18 @@ public class OI
         //limit the maximum power that the drivetrain that can output
         value *= RobotMap.Force.MAX_DRIVETRAIN_VALUE;
         
-        double triggerDelta = value - previousDriveTrainMoveValue;
-        if (triggerDelta > RobotMap.DriverGamepad.MAX_TRIGGER_DELTA){
-            value = previousDriveTrainMoveValue + RobotMap.DriverGamepad.MAX_TRIGGER_DELTA;
-            System.out.println("Limiting Acceleration...");
+        double triggerDelta = value - previousMoveValue;
+        if (triggerDelta > RobotMap.DriverGamepad.MAX_SPEED_DELTA){
+            value = previousMoveValue + RobotMap.DriverGamepad.MAX_SPEED_DELTA;
+            if (value > 0.05 && value < RobotMap.Force.MIN_DRIVETRAIN_VALUE){
+                value = RobotMap.Force.MIN_DRIVETRAIN_VALUE;
+            }
         }
-        else if (triggerDelta < -RobotMap.DriverGamepad.MAX_TRIGGER_DELTA){
-            value = previousDriveTrainMoveValue - RobotMap.DriverGamepad.MAX_TRIGGER_DELTA;
-            System.out.println("Limiting Acceleration...");
+        else if (triggerDelta < -RobotMap.DriverGamepad.MAX_SPEED_DELTA){
+            value = previousMoveValue - RobotMap.DriverGamepad.MAX_SPEED_DELTA;
+            if (value < -0.05 && value > -RobotMap.Force.MIN_DRIVETRAIN_VALUE){
+                value = -RobotMap.Force.MIN_DRIVETRAIN_VALUE;
+            }
         }
         
         //ensure that the value is within the acceptable range
@@ -125,16 +143,15 @@ public class OI
         value = Math.max(value, -RobotMap.Force.MAX_DRIVETRAIN_VALUE);
         value = Math.min(value, RobotMap.Force.MAX_DRIVETRAIN_VALUE);
         
+        //System.out.println("Drivetrain Move Value: " + value + 
+          //      " (FORCING DRIVETRAIN TO 0 FOR TESTING)");
         
-        System.out.println("Drivetrain Move Value: " + value + 
-                " (FORCING DRIVETRAIN TO 0 FOR TESTING)");
-        
-        previousDriveTrainMoveValue = value;
-        return 0; //returning 0 for safety; check output before returning value
+        previousMoveValue = value;
+        return value; //returning 0 for safety; check output before returning value
     }
     
     public final double getRotateValue() {
-        return -driverGamepad.getX();
+        return -driverGamepad.getX() * RobotMap.DriverGamepad.MAX_TURN_VALUE;
     }
     
     /**
@@ -156,6 +173,32 @@ public class OI
     }
     
     
+    /**
+     * checks if the ball is in the robot and the arms should 
+     * taper off 
+     * @return true if the ball is within the robot
+     */
+    public boolean isBallInRobot(){
+        //value is potentially between 0 and 4096 (-10V - 10V)
+        //actual input limited to 0-1024 (0V - 5V)
+        int sensorValue = ballSensor.getValue();
+        
+        System.out.println("Ball Sensor Value: " + sensorValue);
+        
+        if (sensorValue >= RobotMap.AnalogInput.BALL_IN_ROBOT_CUTOFF){
+            return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * returns the state of the grab ball button
+     * @return true if the button is down, false otherwise
+     */
+    public boolean isGrabButtonDown(){
+        return grabButton.get();
+    }
     
     /**
      * Returns the force of the pressed shoot speed modifier.
@@ -163,46 +206,48 @@ public class OI
      * @return int Force of the command (0-100)
      */
     public int getShootForce() {
-       int force;
-
-       if(isDpadSouthPressed(launcherGamepad)) {
-           force = RobotMap.Force.SHOOT_FORCE_LOW;
-       } else if(isDpadEastPressed(launcherGamepad)) {
-           force = RobotMap.Force.SHOOT_FORCE_MED;
-       } else if(isDpadNorthPressed(launcherGamepad)) {
-           force = RobotMap.Force.SHOOT_FORCE_HIGH;
-       } else if(isDpadWestPressed(launcherGamepad)) {
-           force = RobotMap.Force.SHOOT_FORCE_MAX;
-       } else {
-           force = 0;
+       
+       //quick way to calibarte door speeds
+       if (RobotMap.Force.GET_FORCE_FROM_SMART_DASHBOARD){ 
+           int force = (int) SmartDashboard.getNumber(RobotMap.Force.DOOR_FORCE_KEY); 
+           System.out.println("Door Force From SmartDashboard: " + force);
+           return force;
        }
-
-       return force;
+        
+       if (Jagbot.isInAutonomousMode()){
+           return RobotMap.Force.SHOOT_FORCE_MED;
+       } else if(isDpadSouthPressed(launcherGamepad)) {
+           return RobotMap.Force.SHOOT_FORCE_LOW;
+       } else if(isDpadEastPressed(launcherGamepad)) {
+           return RobotMap.Force.SHOOT_FORCE_MED;
+       } else if(isDpadNorthPressed(launcherGamepad)) {
+           return RobotMap.Force.SHOOT_FORCE_HIGH;
+       } else if(isDpadWestPressed(launcherGamepad)) {
+           return RobotMap.Force.SHOOT_FORCE_MAX;
+       } else {
+           return 0;
+       }
     }
     
     /**
      * Returns the force of the pressed pass speed modifier.
-     * 
      * @return int Force of the command (0-100)
      */
     public int getPassForce() {
-       int force;
 
        System.out.println("DPad X: " + getDpadXValue(launcherGamepad) + " Dpad Y: " + getDpadYValue(launcherGamepad));
        
        if(isDpadSouthPressed(launcherGamepad)) {
-           force = RobotMap.Force.PASS_FORCE_LOW;
+           return RobotMap.Force.PASS_FORCE_LOW;
        } else if(isDpadEastPressed(launcherGamepad)) {
-           force = RobotMap.Force.PASS_FORCE_MED;
+           return RobotMap.Force.PASS_FORCE_MED;
        } else if(isDpadNorthPressed(launcherGamepad)) {
-           force = RobotMap.Force.PASS_FORCE_HIGH;
+           return RobotMap.Force.PASS_FORCE_HIGH;
        } else if(isDpadWestPressed(launcherGamepad)) {
-           force = RobotMap.Force.PASS_FORCE_MAX;
+           return RobotMap.Force.PASS_FORCE_MAX;
        } else {
-           force = 0;
+           return 0;
        }
-
-       return force;
     }
     
     /**
@@ -212,24 +257,6 @@ public class OI
      */
     public Command getShootCommand() {
         return shootCommand;
-    }
-
-    /**
-     * Returns the command that passes the ball.
-     * 
-     * @return The command
-     */
-    public Command getPassCommand() {
-        return passCommand;
-    }
-
-    /**
-     * Returns the command that grabs the ball.
-     * 
-     * @return The command
-     */
-    public Command getGrabCommand() {
-        return grabCommand;
     }
     
     /**
@@ -246,10 +273,18 @@ public class OI
      * 
      * @return Right stick value
      */
-    public double getDriverRightStickValue() {
-        return -driverGamepad.getRawAxis(RobotMap.DriverGamepad.RIGHT_STICK);
+    public double getDriverRightStickYValue() {
+        return -driverGamepad.getRawAxis(RobotMap.DriverGamepad.RIGHT_STICK_Y);
     }
     
+    /**
+     * Gets the value of the right stick from the driverGamepad.
+     * 
+     * @return Right stick value
+     */
+    public double getDriverRightStickXValue() {
+        return -driverGamepad.getRawAxis(RobotMap.DriverGamepad.RIGHT_STICK_X);
+    }
     
     /**
      * Gets the value of the left stick from the launcherGamepad.
@@ -257,7 +292,7 @@ public class OI
      * @return Left stick value
      */
     public double getLauncherLeftStickValue() {
-        return -launcherGamepad.getRawAxis(RobotMap.DriverGamepad.LEFT_STICK);
+        return -launcherGamepad.getRawAxis(RobotMap.LauncherGamepad.LEFT_STICK);
     }
     
     /**
@@ -266,7 +301,7 @@ public class OI
      * @return Right stick value
      */
     public double getLauncherRightStickValue() {
-        return -launcherGamepad.getRawAxis(RobotMap.DriverGamepad.RIGHT_STICK);
+        return -launcherGamepad.getRawAxis(RobotMap.LauncherGamepad.RIGHT_STICK);
     }
     
     /**
@@ -330,6 +365,10 @@ public class OI
      */
     public boolean isDpadWestPressed(Joystick gamepad) {
         double dpadVal = getDpadXValue(gamepad);
-        return (dpadVal == 1);
+        return (dpadVal == -1);
+    }
+
+    public Command getHaltDoorsCommand() {
+        return haltDoorsCommand;
     }
 }

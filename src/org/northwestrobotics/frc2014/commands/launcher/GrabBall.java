@@ -24,6 +24,7 @@
 
 package org.northwestrobotics.frc2014.commands.launcher;
 
+import edu.wpi.first.wpilibj.Timer;
 import org.northwestrobotics.frc2014.RobotMap;
 import org.northwestrobotics.frc2014.commands.CommandBase;
 import org.northwestrobotics.frc2014.commands.TimeElapsedCommand;
@@ -36,12 +37,16 @@ import org.northwestrobotics.frc2014.commands.TimedCommand;
  * 
  * @author Joshua Fleming <js.fleming@outlook.com>
  */
-public class GrabBall extends TimeElapsedCommand //extends TimedCommand 
-{    
+public class GrabBall extends CommandBase //extends TimedCommand 
+{   
+    
+    private Timer timer;
+    private boolean timerStarted = false;
+    
     public GrabBall() {
-        //super(RobotMap.Time.TIME_TO_GRAB_BALL);
         requires(launcher);
-        setTimeLimit(RobotMap.Time.TIME_TO_GRAB_BALL);
+        
+        timer = new Timer();
     }
 
     /**
@@ -49,24 +54,27 @@ public class GrabBall extends TimeElapsedCommand //extends TimedCommand
      */
     protected void initialize() {
         super.initialize();
-        launcher.closeDoors(RobotMap.Force.GRAB_FORCE);
+        //launcher.closeDoors(RobotMap.Force.GRAB_FORCE);
     }
 
-    protected void execute(double timeElapsed) {
-        double deltaForce = RobotMap.Force.IDLE_DOOR_FORCE - RobotMap.Force.GRAB_FORCE;
-        double force = RobotMap.Force.GRAB_FORCE + (getTotalTimeElapsed()/getTimeLimit()) * deltaForce;
-        launcher.closeDoors(force);
-        System.out.println("TAPERING FORCE: " + force);
-        
+    protected void execute(){
+        if (oi.isBallInRobot()){
+            launcher.haltDoors();
+        }
+        else {
+            launcher.closeDoors(RobotMap.Force.GRAB_FORCE);
+        }
     }
     
     /**
-     * Stops closing the doors.
+     * command is finished when the grab ball button is no longer pressed
      */
-    protected void end() {
-        super.end();
-        launcher.haltDoors();
+    protected boolean isFinished(){
+        if (!oi.isGrabButtonDown()){
+            System.out.println("Grab Ball Should Finish");
+        }
+        return !oi.isGrabButtonDown();
     }
-
+    
     
 }

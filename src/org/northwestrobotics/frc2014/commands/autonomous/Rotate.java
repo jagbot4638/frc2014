@@ -58,6 +58,6 @@ public class Rotate extends DirectionalCommand
      * Commences the command.
      */
     protected void initialize() {
-        drivetrain.move(getDirection(), -getDirection());
+        drivetrain.tankMove(-getDirection(), getDirection());
     }
 }

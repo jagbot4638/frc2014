@@ -50,7 +50,6 @@ public class LauncherSubsystem extends Subsystem
     
     public void initDefaultCommand() {
         extendHardStop();
-        //launchBall(50);
         new RetractDoorLatches().start();
     }
     
@@ -58,6 +57,7 @@ public class LauncherSubsystem extends Subsystem
      * Extends hard stop.
      */
     public void extendHardStop() {
+        System.out.println("Extend Hard Stop");
         hardStop.set(Relay.Value.kOn);
     }
     
@@ -65,6 +65,7 @@ public class LauncherSubsystem extends Subsystem
      * Retracts hard stop.
      */
     public void retractHardStop() {
+        System.out.println("Retract Hard stop");
         hardStop.set(Relay.Value.kOff);
     }
     
@@ -72,16 +73,16 @@ public class LauncherSubsystem extends Subsystem
      * Retracts door latches.
      */
     public void retractDoorLatches() {
-        MessageWindow.write(4, "Ret door latch");
-        doorLatch.set(Relay.Value.kOff);
-    }
-    
-    public void deactivateDoorLatches() {
+        System.out.println("Retract door latches");
         doorLatch.set(Relay.Value.kOn);
     }
     
+    public void deactivateDoorLatches() {
+        System.out.println("Deactivate Door Latches");
+        doorLatch.set(Relay.Value.kOff);
+    }
+    
     private void setDoorMotors(double speed) {
-        //speed /= 2;
         System.out.println("Close Door Motors: " + speed);
         leftDoor.set(-speed);
         rightDoor.set(speed);
@@ -96,7 +97,9 @@ public class LauncherSubsystem extends Subsystem
         // Limits speed to max value of 100 and min value of 0
         force = Math.min(force, 100);
         force = Math.max(force, 0);
-                
+        
+        System.out.println("Close door force: " + force);
+        
         if(force > 0) {
             setDoorMotors(force / 100.0);
         }
